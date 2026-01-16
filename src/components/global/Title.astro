@@ -2,25 +2,65 @@
 const { title, subtitle, class: className } = Astro.props;
 ---
 
-<div class:list={["flex md:justify-center", className]}>
-    <div class="inline-flex flex-col gap-4">
-        <div class="inline-flex items-center gap-4">
-            <div class="hidden h-1 w-20 bg-lime-500 md:block"></div>
+<div class:list={["flex md:justify-center overflow-hidden py-10", className]}>
+    <div class="inline-flex flex-col gap-6 w-full max-w-7xl px-8">
+        
+        <div class="header-reveal-sub opacity-0 flex items-center gap-4">
+            <div class="h-px w-12 bg-lime-400"></div>
             <span 
-                class="font-mono text-xs font-bold uppercase tracking-[0.2em] text-zinc-400" 
+                class="font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] text-zinc-500" 
                 set:html={subtitle} 
             />
         </div>
 
-        <h1 class="font-display text-5xl font-black tracking-tighter text-white sm:text-7xl md:text-8xl lg:text-9xl leading-[0.9]">
+        <h2 class="header-reveal-title opacity-0 font-display text-6xl font-black tracking-tighter text-white sm:text-7xl md:text-8xl lg:text-[10rem] leading-[0.85] uppercase italic">
             {title}
-        </h1>
+        </h2>
+
     </div>
 </div>
 
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initHeader() {
+        const titles = document.querySelectorAll('.header-reveal-title');
+        const subs = document.querySelectorAll('.header-reveal-sub');
+
+        titles.forEach((title, i) => {
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: title,
+                    start: "top 90%",
+                }
+            });
+
+            tl.to(subs[i], {
+                opacity: 1,
+                duration: 0.8,
+                ease: "power2.out"
+            })
+            .to(title, {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "expo.out"
+            }, "-=0.6");
+        });
+    }
+
+    document.addEventListener("astro:page-load", initHeader);
+    initHeader();
+</script>
+
 <style>
-    /* Ajuste de kerning para títulos de gran tamaño */
-    .font-display {
-        letter-spacing: -0.05em;
+    .header-reveal-title {
+        transform: translateY(40px);
+        /* Evita el recorte de las letras cursivas */
+        padding-right: 0.1em; 
+        text-wrap: balance;
     }
 </style>

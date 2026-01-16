@@ -1,56 +1,67 @@
 ---
-import { getLangFromUrl, useTranslations, useTranslatedPath } from "@i18n/utils";
-
 const { class: className } = Astro.props;
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-const translatePath = useTranslatedPath(lang);
+// Texto con spans para resaltar palabras clave
 ---
 
-<div id="smooth-wrapper" class:list={["section tagline-section relative bg-zinc-900 text-white py-24", className]}>
-    <div class="tagline-arrows flex justify-center mb-12">
+<section id="tagline-section" class:list={["relative bg-zinc-950 text-white py-32 overflow-hidden", className]}>
+    <div class="tagline-arrows flex justify-center mb-16">
         <svg
-            stroke-linecap="round"
-            class="h-[15rem] w-[15rem] rotate-45 md:w-[20rem] md:rotate-0 lg:w-[25rem]"
-            stroke-linejoin="round"
-            viewBox="0 0 550 330">
+            viewBox="0 0 550 330"
+            class="h-[20rem] w-[20rem] md:h-[30rem] md:w-[30rem] lg:h-[35rem] lg:w-[35rem] transition-transform duration-500"
+            preserveAspectRatio="xMidYMid meet">
             <path
                 id="tagline-arrow-path"
                 fill="none"
-                stroke="#fff"
-                stroke-width="10"
+                stroke="#a3e635"
+                stroke-width="8"
+                stroke-linecap="round"
                 d="M8.5,7.8C46.3,67,121.7,185.5,265.5,185.9c42.8,0.1,120.5-55.9-25.2-120.3
-    C79-5.8,177.6,164.1,222.3,207.7c59.1,49.9,83.8,62.1,162.6,96.8">
+        C79-5.8,177.6,164.1,222.3,207.7c59.1,49.9,83.8,62.1,162.6,96.8">
             </path>
-            <path class="opacity-0" id="tagline-arrow" fill="white" stroke="white" stroke-width="12" d="M465.7 172.9l47.1 6-29.8 33.3-17.3-39.3z"></path>
+            <path 
+                id="tagline-arrow" 
+                fill="#a3e635" 
+                d="M-15,-10 L15,0 L-15,10 Z" 
+                class="opacity-0">
+            </path>
         </svg>
     </div>
-    <div class="text col-span-12 flex justify-center font-light px-8">
-        <p id="services-tagline" class="max-w-5xl text-center text-4xl md:text-5xl lg:text-7xl leading-tight">
-            {t("tagline")}
-        </p>
+
+    <div class="flex justify-center px-8">
+        <h2 id="services-tagline" class="max-w-6xl text-center text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase italic leading-[0.9]">
+            Transformamos <span class="text-lime-400">complejidad</span> en <br class="hidden md:block"/> 
+            <span class="highlight-reveal">potencia digital</span> para tu <span class="text-lime-400">negocio</span>.
+        </h2>
     </div>
-</div>
+</section>
 
 <style>
-    /* Estilo para el efecto de revelado de texto línea por línea */
-    .text > p > :global(div) {
-        background: linear-gradient(to right, rgb(255, 255, 255) 50%, rgb(63, 63, 70) 50%);
+    /* Efecto de revelado de texto elegante */
+    #services-tagline {
+        perspective: 1000px;
+    }
+
+    :global(.tagline-line) {
+        background: linear-gradient(to right, #ffffff 50%, #27272a 50%);
         background-size: 200% 100%;
         background-position-x: 100%;
         color: transparent;
         background-clip: text;
         -webkit-background-clip: text;
-        line-height: 1.2;
+        display: inline-block;
+    }
+
+    /* Clase especial para las palabras ya en verde para que no se pierdan con el degradado */
+    :global(.tagline-line .text-lime-400) {
+        color: #a3e635 !important;
+        -webkit-text-fill-color: #a3e635 !important;
     }
 </style>
 
 <script>
     import { gsap } from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
-    // Nota: Estos plugins suelen requerir membresía de GSAP. 
-    // Si no los tienes instalados, el script fallará.
     import { SplitText } from "gsap/SplitText";
     import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
     import { MotionPathPlugin } from "gsap/MotionPathPlugin";
@@ -59,47 +70,58 @@ const translatePath = useTranslatedPath(lang);
 
     function initTagline() {
         const linePath = document.querySelector("#tagline-arrow-path");
-        if (!linePath) return;
+        const arrow = document.querySelector("#tagline-arrow");
+        const textElement = document.querySelector("#services-tagline");
 
-        gsap.set(linePath, { drawSVG: 0 });
+        if (!linePath || !textElement) return;
 
-        // Animación de la flecha y el camino
-        gsap.timeline({
+        // Limpiar animaciones previas si existen (para Astro transitions)
+        gsap.set(linePath, { drawSVG: "0%" });
+        gsap.set(arrow, { opacity: 0 });
+
+        // 1. Animación de la Flecha y el Trazo (Sincronizada con el scroll)
+        const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: ".tagline-arrows",
-                start: "center bottom",
-                end: "center center",
-                scrub: 1,
+                start: "top 80%", // Empieza antes
+                end: "bottom 20%",
+                scrub: 1.5,
             },
-        })
-        .to(linePath, { drawSVG: "100%" }, 0)
-        .to("#tagline-arrow", { opacity: 1, duration: 0.1 }, 0)
-        .to("#tagline-arrow", {
+        });
+
+        tl.to(arrow, { opacity: 1, duration: 0.05 }, 0)
+          .to(linePath, { drawSVG: "100%", ease: "none" }, 0)
+          .to(arrow, {
             motionPath: {
-                path: "#tagline-arrow-path",
-                align: "#tagline-arrow-path",
+                path: linePath,
+                align: linePath,
+                autoRotate: true,
                 alignOrigin: [0.5, 0.5],
-                autoRotate: 30,
             },
+            ease: "none"
         }, 0);
 
-        // Animación de revelado de texto
-        const split = new SplitText("#services-tagline", { type: "lines" });
-        split.lines.forEach((target) => {
-            gsap.to(target, {
-                backgroundPositionX: 0,
-                ease: "none",
+        // 2. Animación de Texto (Split por líneas)
+        const split = new SplitText(textElement, { type: "lines", linesClass: "tagline-line" });
+        
+        split.lines.forEach((line) => {
+            gsap.to(line, {
+                backgroundPositionX: "0%",
+                ease: "power2.out",
                 scrollTrigger: {
-                    trigger: target,
+                    trigger: line,
+                    start: "top 85%",
+                    end: "top 40%",
                     scrub: 1,
-                    start: "top bottom-=20%",
-                    end: "bottom bottom-=10%",
-                },
+                }
             });
         });
     }
 
-    // Inicialización compatible con Astro
+    // Ejecutar en carga inicial y en cambios de página de Astro
     document.addEventListener("astro:page-load", initTagline);
-    initTagline();
+    // Fallback por si acaso
+    if (document.readyState !== "loading") {
+        initTagline();
+    }
 </script>

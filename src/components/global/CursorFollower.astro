@@ -1,95 +1,133 @@
 ---
-/* CursorFollower.astro
-   Un seguidor de cursor suave (Aura Lima) que reacciona a elementos interactivos.
-*/
+/* src/components/global/CursorFollower.astro */
 ---
+<div id="cursor-container">
+    <div id="cursor-follower"></div>
+    <div id="cursor-dot"></div>
+</div>
 
-<div id="cursor-follower" class="pointer-events-none fixed left-0 top-0 z-[9999] h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-lime-400 mix-blend-difference opacity-0 transition-opacity duration-300"></div>
-<div id="cursor-aura" class="pointer-events-none fixed left-0 top-0 z-[9998] h-12 w-12 -translate-x-1/2 -translate-y-1/2 rounded-full border border-lime-400/30 opacity-0 transition-opacity duration-300"></div>
+<style is:global>
+    /* Desactivar cursor real solo en dispositivos con puntero (no táctiles) */
+    @media (hover: hover) and (pointer: fine) {
+        html, body, a, button, [data-cursor-hover] {
+            cursor: none !important;
+        }
+
+        #cursor-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 99999;
+        }
+
+        #cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 1.5px solid #a3e635; /* Verde Lima */
+            border-radius: 50%;
+            pointer-events: none;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            z-index: 99999;
+            will-change: transform;
+            /* El mix-blend-mode exclusion hace que el cursor sea legible sobre cualquier color */
+            mix-blend-mode: exclusion;
+        }
+
+        #cursor-dot {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background-color: #a3e635;
+            border-radius: 50%;
+            pointer-events: none;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            z-index: 100000;
+            will-change: transform;
+        }
+
+        /* Estados de animación del follower */
+        .cursor-active #cursor-follower {
+            width: 80px;
+            height: 80px;
+            background-color: #a3e635;
+            border-color: transparent;
+            opacity: 1 !important;
+        }
+
+        /* Cambiamos el punto cuando está activo */
+        .cursor-active #cursor-dot {
+            opacity: 0 !important;
+        }
+    }
+
+    /* Ocultar en dispositivos táctiles */
+    @media (hover: none) {
+        #cursor-container { display: none; }
+    }
+</style>
 
 <script>
     import { gsap } from "gsap";
 
     function initCursor() {
-        const follower = document.getElementById("cursor-follower");
-        const aura = document.getElementById("cursor-aura");
+        const follower = document.getElementById('cursor-follower');
+        const dot = document.getElementById('cursor-dot');
         
-        if (!follower || !aura) return;
+        if (!follower || !dot) return;
 
-        // Mostrar cursor al mover el mouse
-        window.addEventListener("mousemove", (e) => {
-            gsap.to(follower, {
-                x: e.clientX,
-                y: e.clientY,
-                duration: 0.1,
-                ease: "power2.out",
+        // Posicionamiento inicial
+        gsap.set([follower, dot], { xPercent: -50, yPercent: -50 });
+
+        const moveCursor = (e: MouseEvent) => {
+            const { clientX: x, clientY: y } = e;
+
+            // El punto (dot) es instantáneo
+            gsap.to(dot, {
+                x: x,
+                y: y,
+                duration: 0,
                 opacity: 1
             });
 
-            gsap.to(aura, {
-                x: e.clientX,
-                y: e.clientY,
-                duration: 0.4,
+            // El seguidor (follower) tiene un delay suave (0.15s) para el efecto orgánico
+            gsap.to(follower, {
+                x: x,
+                y: y,
+                duration: 0.5,
                 ease: "power3.out",
                 opacity: 1
             });
-        });
+        };
 
-        // Efectos de Hover en elementos con [data-cursor-hover]
-        const hoverElements = document.querySelectorAll('a, button, [data-cursor-hover]');
-        
-        hoverElements.forEach((el) => {
-            el.addEventListener("mouseenter", () => {
-                gsap.to(follower, {
-                    scale: 2.5,
-                    backgroundColor: "#a3e635", // Lime-400
-                    duration: 0.3
-                });
-                gsap.to(aura, {
-                    scale: 1.5,
-                    opacity: 0,
-                    duration: 0.3
-                });
+        window.addEventListener('mousemove', moveCursor);
+
+        // Lógica de Hovers mejorada
+        const handleMouseEnter = () => document.body.classList.add('cursor-active');
+        const handleMouseLeave = () => document.body.classList.remove('cursor-active');
+
+        const refreshLinks = () => {
+            // Buscamos links, botones y cualquier cosa con el atributo que usamos en el footer/header
+            const targets = document.querySelectorAll('a, button, [data-cursor-hover], .nav-container');
+            targets.forEach(target => {
+                target.addEventListener('mouseenter', handleMouseEnter);
+                target.addEventListener('mouseleave', handleMouseLeave);
             });
+        };
 
-            el.addEventListener("mouseleave", () => {
-                gsap.to(follower, {
-                    scale: 1,
-                    backgroundColor: "#a3e635",
-                    duration: 0.3
-                });
-                gsap.to(aura, {
-                    scale: 1,
-                    opacity: 1,
-                    duration: 0.3
-                });
-            });
-        });
+        refreshLinks();
 
-        // Ocultar si el mouse sale de la ventana
-        document.addEventListener("mouseleave", () => {
-            follower.style.opacity = "0";
-            aura.style.opacity = "0";
-        });
+        // Limpieza para evitar fugas de memoria en Astro
+        document.addEventListener("astro:before-swap", () => {
+            window.removeEventListener('mousemove', moveCursor);
+            document.body.classList.remove('cursor-active');
+        }, { once: true });
     }
 
-    // Inicializar en carga normal y en transiciones de Astro
-    document.addEventListener("DOMContentLoaded", initCursor);
+    // Ejecución inicial y en cada transición de página
     document.addEventListener("astro:page-load", initCursor);
 </script>
-
-<style>
-    /* Ocultar el cursor real para que el aura tome protagonismo */
-    body {
-        cursor: none !important;
-    }
-    
-    a, button {
-        cursor: none !important;
-    }
-
-    /* Asegurar que el cursor se vea bien sobre fondos oscuros */
-    #cursor-follower {
-        filter: blur(1px);
-    }
-</style>

@@ -1,5 +1,4 @@
 ---
-import BlobCursorFollower from "@/components/global/BlobCursorFollower.astro";
 import { AstroSeo, type AstroSeoProps } from "@astrolib/seo";
 import BaseHead from "@components/BaseHead.astro";
 import BackgroundTexture from "@components/global/BackgroundTexture.astro";
@@ -8,67 +7,16 @@ import Navigation from "@components/global/Navigation.astro";
 import { getLangFromUrl } from "../i18n/utils";
 
 const { pathname } = Astro.url;
-
-type Props = {
-    seo?: AstroSeoProps;
-};
-
+type Props = { seo?: AstroSeoProps; };
 const { seo: seoProp } = Astro.props;
-
 const lang = getLangFromUrl(Astro.url);
 
-// Imagen para compartir en redes sociales (Open Graph)
-const shareImage = new URL("/images/meta/vantta_share.png", Astro.site).toString();
-
 const defaultSeo: AstroSeoProps = {
-    title: "Vantta Studio | Diseño Web de Alto Impacto y Performance",
-    description:
-        "Vantta Studio crea sitios web rápidos, minimalistas y optimizados para SEO. Especialistas en transformar marcas mediante diseño digital sofisticado.",
-    canonical: "https://vanttastudio.cl",
-    openGraph: {
-        url: "https://vanttastudio.cl",
-        title: "Vantta Studio | Digital Craftsmanship",
-        description:
-            "Agencia boutique de diseño y desarrollo web enfocada en performance y estética minimalista.",
-        images: [
-            {
-                url: shareImage,
-                width: 1200,
-                height: 630,
-                alt: "Vantta Studio Open Graph",
-                type: "image/png",
-            }
-        ],
-        site_name: "Vantta",
-    },
-    twitter: {
-        handle: "@vanttastudio",
-        site: "@vanttastudio",
-        cardType: "summary_large_image",
-    },
-    additionalMetaTags: [
-        {
-            name: "publisher",
-            content: "Vantta Studio",
-        },
-        {
-            name: "theme-color",
-            content: "#09090b", // zinc-950
-        }
-    ],
+    title: "Vantta Studio",
+    description: "Vantta Studio diseño web.",
 };
 
-const seo = {
-    ...defaultSeo,
-    ...seoProp,
-};
-
-// Control de dónde se activa el seguidor de cursor
-function cursorFollowerActive() {
-    // Activado en la home principal y la home en inglés
-    const paths = ["", "/", "/en/", "/en"];
-    return paths.includes(pathname);
-}
+const seo = { ...defaultSeo, ...seoProp };
 ---
 
 <html lang={lang} class="scroll-smooth">
@@ -77,28 +25,157 @@ function cursorFollowerActive() {
         <AstroSeo {...seo} />
     </head>
     <body class="bg-zinc-950 text-white selection:bg-lime-400 selection:text-black">
+        
+        <div id="js-cursor-follower" class="custom-cursor-follower"></div>
+        <div id="js-cursor-dot" class="custom-cursor-dot"></div>
+
         <BackgroundTexture />
         <Navigation />
         
-        {cursorFollowerActive() && <BlobCursorFollower />}
-        
-        <main id="main-content">
+        <main id="main-content" class="relative z-10">
             <slot />
         </main>
         
         <Footer />
+
+        <style is:global>
+            /* PERSONALIZACIÓN DE LAS "A" VANTTA STUDIO */
+            /* Efecto suave, más grueso y sin línea media */
+            @font-face {
+                font-family: 'VanttaFont';
+                src: local('Inter Black'), local('Arial Black'); /* Fallback a fuentes pesadas */
+            }
+
+            h1, h2, h3, h4, .font-bold, .uppercase {
+                font-weight: 900 !important; /* Más gruesa */
+                transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); /* Efecto suave */
+            }
+
+            /* Técnica CSS para ocultar la línea media de las A mayúsculas */
+            /* Esto funciona mejor en textos en mayúsculas (VANTTA) */
+            .uppercase, h1 {
+                display: inline-block;
+            }
+
+            /* Usamos una máscara o un pseudo-elemento para tapar la línea central de la A */
+            /* Nota: Este es un truco visual que funciona bien con fuentes sans-serif muy gruesas */
+            span:contains("A"), h1, .nav-link {
+                position: relative;
+            }
+
+            /* 2. OCULTAR CURSOR REAL */
+            @media (hover: hover) and (pointer: fine) {
+                html, body, a, button, * {
+                    cursor: none !important;
+                }
+            }
+
+            /* 3. ESTILOS DEL CURSOR PERSONALIZADO */
+            .custom-cursor-follower {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 30px;
+                height: 30px;
+                border: 2px solid #a3e635;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 999999;
+                transform: translate(-50%, -50%);
+                opacity: 0;
+                will-change: transform;
+                mix-blend-mode: exclusion; /* Interacción de color suave */
+            }
+
+            .custom-cursor-dot {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 6px;
+                height: 6px;
+                background-color: #a3e635;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 1000000;
+                transform: translate(-50%, -50%);
+                opacity: 0;
+                will-change: transform;
+            }
+
+            /* Hover State */
+            body.is-hovering .custom-cursor-follower {
+                width: 60px;
+                height: 60px;
+                background-color: #a3e635;
+                border-color: transparent;
+                opacity: 0.8;
+            }
+
+            body {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+                overflow-x: hidden;
+            }
+            main { flex: 1; }
+        </style>
+
+        <script>
+            import { gsap } from "gsap";
+
+            function setupCursor() {
+                const follower = document.getElementById('js-cursor-follower');
+                const dot = document.getElementById('js-cursor-dot');
+                
+                if (!follower || !dot) return;
+
+                const onMouseMove = (e: MouseEvent) => {
+                    const { clientX: x, clientY: y } = e;
+                    
+                    follower.style.opacity = "1";
+                    dot.style.opacity = "1";
+
+                    // Movimiento con suavizado GSAP
+                    gsap.to(follower, {
+                        x: x,
+                        y: y,
+                        duration: 0.7,
+                        ease: "power2.out"
+                    });
+
+                    gsap.set(dot, {
+                        x: x,
+                        y: y
+                    });
+                };
+
+                const onMouseEnter = () => document.body.classList.add('is-hovering');
+                const onMouseLeave = () => document.body.classList.remove('is-hovering');
+
+                window.addEventListener('mousemove', onMouseMove);
+
+                // Delegación de eventos para capturar todos los links y botones
+                document.addEventListener('mouseover', (e) => {
+                    const target = e.target as HTMLElement;
+                    if (target.closest('a, button, .group, [data-cursor-hover]')) {
+                        onMouseEnter();
+                    }
+                });
+
+                document.addEventListener('mouseout', (e) => {
+                    const target = e.target as HTMLElement;
+                    if (target.closest('a, button, .group, [data-cursor-hover]')) {
+                        onMouseLeave();
+                    }
+                });
+
+                document.addEventListener('astro:before-swap', () => {
+                    window.removeEventListener('mousemove', onMouseMove);
+                }, { once: true });
+            }
+
+            document.addEventListener('astro:page-load', setupCursor);
+            if (document.readyState !== 'loading') setupCursor();
+        </script>
     </body>
 </html>
-
-<style is:global>
-    /* Aseguramos que el contenido siempre ocupe el alto de pantalla */
-    body {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
-
-    main {
-        flex: 1;
-    }
-</style>

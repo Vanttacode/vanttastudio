@@ -1,13 +1,15 @@
 ---
 import Newsletter from "@components/blog/Newsletter.astro";
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "@i18n/utils";
+import logovanta from "@/assets/images/logovanta.png";
+import { Image } from "astro:assets";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 ---
 
-<footer class="section min-h-screen gap-y-10 py-12 lg:gap-y-32 bg-zinc-950 text-white">
+<footer class="section min-h-screen gap-y-10 py-12 lg:gap-y-32 bg-zinc-950 text-white overflow-hidden">
     <div class="relative flex-grow"></div>
     
     <div class="relative grid grid-cols-6 gap-y-20 lg:grid-cols-12 lg:text-xl border-t border-zinc-800 pt-20">
@@ -15,17 +17,18 @@ const translatePath = useTranslatedPath(lang);
             <div class="col-span-3 lg:col-span-3 flex flex-col gap-4">
                 <p class="text-zinc-500 text-sm uppercase tracking-widest font-bold">Social</p>
                 <div class="flex flex-col gap-2">
-                    <a href="https://twitter.com/vanttastudio" target="_blank" class="hover:text-lime-400 transition-colors w-fit text-2xl lg:text-xl font-medium">Twitter / X</a>
-                    <a href="https://www.instagram.com/vanttastudio" target="_blank" class="hover:text-lime-400 transition-colors w-fit text-2xl lg:text-xl font-medium">Instagram</a>
-                    <a href="https://www.linkedin.com/company/vantta" target="_blank" class="hover:text-lime-400 transition-colors w-fit text-2xl lg:text-xl font-medium">Linkedin</a>
+                    <a href="https://twitter.com/vanttastudio" target="_blank" rel="noopener noreferrer" class="hover:text-lime-400 transition-colors w-fit text-2xl lg:text-xl font-medium">Twitter / X</a>
+                    <a href="https://www.instagram.com/vanttastudio" target="_blank" rel="noopener noreferrer" class="hover:text-lime-400 transition-colors w-fit text-2xl lg:text-xl font-medium">Instagram</a>
+                    <a href="https://www.facebook.com/vanttastudio" target="_blank" rel="noopener noreferrer" class="hover:text-lime-400 transition-colors w-fit text-2xl lg:text-xl font-medium">Facebook</a>
+                    <a href="https://www.linkedin.com/company/vantta" target="_blank" rel="noopener noreferrer" class="hover:text-lime-400 transition-colors w-fit text-2xl lg:text-xl font-medium">Linkedin</a>
                 </div>
             </div>
 
             <div class="col-span-3 lg:col-span-3 flex flex-col gap-4">
                 <p class="text-zinc-500 text-sm uppercase tracking-widest font-bold">Sitemap</p>
                 <div class="flex flex-col gap-2">
-                    <a href={translatePath("/")} class="hover:text-lime-400 transition-colors w-fit">Home</a>
-                    <a href={translatePath("/blog/")} class="hover:text-lime-400 transition-colors w-fit">Blog</a>
+                    <a href={translatePath("/")} class="hover:text-lime-400 transition-colors w-fit">Inicio</a>
+                    <a href={translatePath("/blog/")} class="hover:text-lime-400 transition-colors w-fit">Labs</a>
                     <a href={translatePath("/contact/")} class="hover:text-lime-400 transition-colors w-fit">{t("contacts")}</a>
                     <a href={translatePath("/privacy/")} class="hover:text-zinc-400 transition-colors text-zinc-500 text-base">Privacy Policy</a>
                 </div>
@@ -33,8 +36,8 @@ const translatePath = useTranslatedPath(lang);
 
             <div class="col-span-6 mt-10">
                 <p class="text-zinc-500 text-sm uppercase tracking-widest font-bold mb-4">Contact</p>
-                <a href="mailto:hello@vantta.studio" class="text-2xl lg:text-4xl font-bold hover:text-lime-400 transition-colors break-words">
-                    hello@vantta.studio
+                <a href="mailto:vanttastudio@gmail.com" class="text-2xl lg:text-4xl font-bold hover:text-lime-400 transition-colors break-words">
+                    vanttastudio@gmail.com
                 </a>
             </div>
         </div>
@@ -49,10 +52,19 @@ const translatePath = useTranslatedPath(lang);
         </div>
     </div>
 
-    <div class="relative mt-20 flex w-full items-end justify-between border-t border-zinc-800 pt-8 text-sm lg:text-base text-zinc-500">
-        <div class="flex flex-col gap-1">
-            <p class="font-bold text-white uppercase tracking-tighter text-lg">Vantta Studio</p>
-            <p>©2026 — All rights reserved</p>
+    <div class="relative mt-20 flex w-full flex-col md:flex-row items-start md:items-end justify-between border-t border-zinc-800 pt-8 text-sm lg:text-base text-zinc-500 gap-8">
+        <div class="flex flex-col gap-4">
+            <div class="w-32 md:w-40 opacity-80 hover:opacity-100 transition-opacity">
+                <Image 
+                    src={logovanta} 
+                    alt="Vantta Studio Logo" 
+                    class="h-auto w-full object-contain filter brightness-0 invert" 
+                />
+            </div>
+            <div class="flex flex-col gap-1">
+                <p class="font-bold text-white uppercase tracking-tighter text-lg">Vantta Studio</p>
+                <p>©2026 — All rights reserved</p>
+            </div>
         </div>
 
         <button
@@ -84,35 +96,36 @@ const translatePath = useTranslatedPath(lang);
 
     gsap.registerPlugin(ScrollToPlugin);
 
-    function init() {
+    function initFooter() {
         const goTopButton = document.getElementById("go-top-button");
 
         if (!goTopButton) return;
 
-        goTopButton.addEventListener("click", () => {
+        // Limpiar eventos previos para Astro
+        const newButton = goTopButton.cloneNode(true) as HTMLElement;
+        goTopButton.parentNode?.replaceChild(newButton, goTopButton);
+
+        newButton.addEventListener("click", () => {
             gsap.to(window, { 
-                duration: 1.2, 
-                scrollTo: 0, 
+                duration: 1.5, 
+                scrollTo: { y: 0, autoKill: true }, 
                 ease: "power4.inOut" 
             });
         });
         
-        // Efecto parallax simple en hover (si tienes cursor personalizado)
-        goTopButton.addEventListener("mousemove", (e) => {
-            const { clientX, clientY } = e;
-            const { left, top, width, height } = goTopButton.getBoundingClientRect();
-            const x = (clientX - (left + width / 2)) * 0.5;
-            const y = (clientY - (top + height / 2)) * 0.5;
-            
-            gsap.to(goTopButton, { x, y, duration: 0.3 });
+        newButton.addEventListener("mousemove", (e) => {
+            const { clientX, clientY } = e as MouseEvent;
+            const { left, top, width, height } = newButton.getBoundingClientRect();
+            const x = (clientX - (left + width / 2)) * 0.3;
+            const y = (clientY - (top + height / 2)) * 0.3;
+            gsap.to(newButton, { x, y, duration: 0.3, ease: "power2.out" });
         });
 
-        goTopButton.addEventListener("mouseleave", () => {
-            gsap.to(goTopButton, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+        newButton.addEventListener("mouseleave", () => {
+            gsap.to(newButton, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.3)" });
         });
     }
 
-    // Compatibilidad con Astro Transitions
-    document.addEventListener("DOMContentLoaded", init);
-    document.addEventListener("astro:page-load", init);
+    document.addEventListener("astro:page-load", initFooter);
+    initFooter();
 </script>

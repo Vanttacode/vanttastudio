@@ -1,59 +1,186 @@
 ---
 import { getCollection } from "astro:content";
-import WokCard from "@components/work/WokCard.astro"; // Asegúrate que el archivo se llame así o ProjectCard
-import { getLangFromUrl, useTranslatedPath, useTranslations } from "@i18n/utils";
-
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-const translatePath = useTranslatedPath(lang);
+import { Image } from "astro:assets";
 
 const { class: className } = Astro.props;
 
-// Obtenemos y filtramos los proyectos de Vantta Studio por idioma
+// Obtenemos todos los proyectos de la colección 'projects' de forma directa
 const allProjects = (await getCollection("projects"))
-    .filter((prj) => {
-        const [postLang] = prj.slug.split("/");
-        return postLang === lang;
-    })
-    .map((prj) => {
-        const [, slug] = prj.slug.split("/");
-        return {
-            ...prj,
-            slug: slug,
-        };
-    })
-    .sort((a, b) => Number(b.data.pubDate) - Number(a.data.pubDate));
+    .sort((a, b) => Number(b.data.pubDate) - Number(a.data.pubDate))
+    .slice(0, 8); 
 ---
 
-<section id="projects" class:list={["section work-preview-section home-dark-section py-12", className]}>
-    <div class="col-span-12 col-start-1 mx-auto max-w-7xl px-4">
-        <h2 class="sr-only">{t("projects")}</h2>
-        <ol class="grid grid-cols-1 gap-24 md:grid-cols-2 lg:gap-44">
-            {
-                allProjects.map((project, index) => (
-                    <WokCard
-                        image={project.data.image.source}
-                        project={project.data.title}
-                        description={project.data.description}
-                        client={project.data.client}
-                        tags={project.data.tags}
-                        link={`/projects/${project.slug}`}
-                        class={
-                            index % 2 === 0
-                                ? `md:col-start-1 md:row-start-${Math.floor(index / 2) * 2 + 1} md:row-span-2`
-                                : `md:col-start-2 md:row-start-${Math.floor(index / 2) * 2 + 2} md:row-span-2`
-                        }
-                    />
-                ))
-            }
-        </ol>
+<section id="work-preview-section" class:list={["w-full bg-zinc-950", className]}>
+    <div class="max-w-7xl mx-auto px-8 pb-16 md:px-12 w-full">
+        <div class="flex flex-col gap-2 border-l border-lime-400/30 pl-6">
+            <h2 class="text-4xl md:text-6xl font-display font-bold uppercase tracking-tight text-white leading-none">
+                Proyectos<span class="text-lime-400">.</span>
+            </h2>
+        </div>
+    </div>
+
+    <div class="inspiro-grid">
+        {
+            allProjects.map((project) => {
+                const projectImage = project.data.image?.source;
+                const firstTag = project.data.tags?.[0] || "Creative";
+                
+                return (
+                    <a 
+                        href={`/work/${project.slug}`} 
+                        class="work-item group"
+                    >
+                        <div class="image-container">
+                            {projectImage ? (
+                                <Image 
+                                    src={projectImage} 
+                                    alt={project.data.title}
+                                    width={800}
+                                    height={800}
+                                    class="project-img"
+                                />
+                            ) : (
+                                <div class="placeholder">IMG</div>
+                            )}
+                            <div class="overlay"></div>
+                        </div>
+
+                        <div class="content">
+                            <span class="tag">{firstTag}</span>
+                            <h3 class="title">{project.data.title}</h3>
+                            <div class="line"></div>
+                        </div>
+                    </a>
+                )
+            })
+        }
     </div>
 </section>
 
 <style is:global>
-    .work-preview-section ol li img {
-        --clip: 0%;
-        clip-path: inset(var(--clip) round 0.5rem);
+    .inspiro-grid {
+        display: grid !important;
+        grid-template-columns: repeat(1, 1fr) !important;
+        width: 100vw !important;
+        position: relative !important;
+        left: 50% !important;
+        right: 50% !important;
+        margin-left: -50vw !important;
+        margin-right: -50vw !important;
+        background-color: #09090b !important;
+        gap: 1px !important;
+        border-top: 1px solid #18181b !important;
+    }
+
+    @media (min-width: 640px) {
+        .inspiro-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+    @media (min-width: 1024px) {
+        .inspiro-grid { grid-template-columns: repeat(4, 1fr) !important; }
+    }
+
+    .work-item {
+        position: relative !important;
+        aspect-ratio: 1 / 1 !important;
+        overflow: hidden !important;
+        background-color: #09090b !important;
+        display: block !important;
+    }
+
+    .image-container {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .project-img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) !important;
+        filter: grayscale(0.5) contrast(1.1);
+    }
+
+    .work-item:hover .project-img {
+        transform: scale(1.05) !important;
+        filter: grayscale(0) contrast(1);
+    }
+
+    .overlay {
+        position: absolute !important;
+        inset: 0 !important;
+        background: radial-gradient(circle at center, rgba(9, 9, 11, 0.4) 0%, rgba(9, 9, 11, 0.95) 100%) !important;
+        opacity: 0.6 !important;
+        transition: opacity 0.5s ease !important;
+        z-index: 10 !important;
+    }
+
+    .work-item:hover .overlay {
+        opacity: 0.9 !important;
+    }
+
+    .content {
+        position: absolute !important;
+        inset: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        z-index: 20 !important;
+        padding: 2.5rem !important;
+        text-align: center !important;
+    }
+
+    .tag {
+        font-family: monospace !important;
+        font-size: 9px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.4em !important;
+        color: #a3e635 !important;
+        transform: translateY(15px) !important;
+        opacity: 0 !important;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) !important;
+    }
+
+    .title {
+        font-weight: 800 !important;
+        text-transform: uppercase !important;
+        color: white !important;
+        font-size: 1.25rem !important;
+        letter-spacing: 0.1em !important;
+        line-height: 1.2 !important;
+        margin-top: 0.75rem !important;
+        transform: translateY(15px) !important;
+        opacity: 0 !important;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0.1s !important;
+    }
+
+    .line {
+        height: 1px !important;
+        width: 0 !important;
+        background-color: #a3e635 !important;
+        margin-top: 1.5rem !important;
+        transition: width 0.6s ease 0.2s !important;
+    }
+
+    .work-item:hover .tag, 
+    .work-item:hover .title {
+        transform: translateY(0) !important;
+        opacity: 1 !important;
+    }
+
+    .work-item:hover .line {
+        width: 30px !important;
+    }
+
+    .placeholder {
+        display: flex !important;
+        height: 100% !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: #0f0f12 !important;
+        color: #27272a !important;
     }
 </style>
 
@@ -61,59 +188,30 @@ const allProjects = (await getCollection("projects"))
     import { gsap } from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-    gsap.registerPlugin(ScrollTrigger);
-
-    function init() {
-        const projects = gsap.utils.toArray(".work-preview-section ol li") as gsap.DOMTarget[];
-        const previews = gsap.utils.toArray(".work-preview-section ol li img") as gsap.DOMTarget[];
+    function initWork() {
+        gsap.registerPlugin(ScrollTrigger);
         
-        previews.forEach((preview) => {
-            gsap.from(preview, {
-                scrollTrigger: {
-                    trigger: preview,
-                    start: "top bottom",
-                    end: "center center",
-                    scrub: 1,
-                    markers: false,
-                },
-                ease: "power3.out",
-                "--clip": "30%",
-            });
-        });
+        // Limpiar triggers anteriores si existen
+        ScrollTrigger.getAll().forEach(t => t.kill());
 
-        gsap.to(".home-dark-section", {
+        gsap.from(".work-item", {
             scrollTrigger: {
-                trigger: ".work-preview-section",
-                start: "bottom bottom",
-                end: "bottom 70%",
-                scrub: 0.5,
-                markers: false,
-                immediateRender: false,
+                trigger: ".inspiro-grid",
+                start: "top 90%",
+                toggleActions: "play none none none"
             },
-            ease: "none",
-            backgroundColor: "#18181b",
-            color: "#fff",
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.05,
+            ease: "expo.out"
         });
-
-        if (window.innerWidth >= 768) {
-            projects.forEach((project) => {
-                gsap.to(project, {
-                    scrollTrigger: {
-                        trigger: ".work-preview-section ol",
-                        start: "top bottom",
-                        end: "bottom center",
-                        scrub: 1,
-                        markers: false,
-                    },
-                    ease: "none",
-                    y: `-200px`,
-                });
-            });
-        }
     }
 
-    // Compatibilidad con transiciones de página de Astro
-    document.addEventListener("astro:page-load", init);
-    // Ejecución inicial
-    init();
+    document.addEventListener("astro:page-load", initWork);
+    
+    // Fallback inicial
+    if (document.readyState !== "loading") {
+        initWork();
+    }
 </script>

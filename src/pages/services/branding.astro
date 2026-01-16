@@ -1,0 +1,149 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import type { AstroSeoProps } from "@astrolib/seo";
+import Title from "@components/global/Title.astro";
+import Cta from "@components/landing/Cta.astro";
+
+// Componentes visuales de fondo
+import TextureOverlay from "@components/global/TextureOverlay.astro";
+import CursorFollower from "@components/global/CursorFollower.astro";
+import GrainyGradient from "@components/global/GrainyGradient.astro";
+import AnimatedBlobs from "@components/global/BlobAnimation.astro";
+
+const seo: AstroSeoProps = {
+    title: "Branding & Identidad Visual | Vantta Studio",
+    description: "Creación de marcas de alto impacto. Logos, identidad visual, administración de redes y diseño publicitario.",
+};
+
+const brandingServices = [
+    { title: "Identidad Core", price: "$350.000", desc: "Desarrollo de marca desde cero. Manual de normas y ADN visual.", features: ["Logotipo Vectorial", "Paleta Cromática", "Tipografía Exclusiva"] },
+    { title: "Social Ads", price: "$200.000", desc: "Diseño de campañas para Meta y Google. Estética que convierte.", features: ["Flyers Digitales", "Motion Graphics", "Copywriting Directo"] },
+    { title: "Social Admin", price: "$450.000", desc: "Gestión completa de comunidades. Crecimiento orgánico y pago.", features: ["Planificación Mensual", "Atención al Cliente", "Reportes Mensuales"] },
+    { title: "Naming", price: "$150.000", desc: "Búsqueda del nombre perfecto. Fonética y disponibilidad legal.", features: ["Análisis de Mercado", "Dominio .com / .cl", "Registro de Marca"] },
+    { title: "Packaging", price: "$280.000", desc: "Diseño de producto físico. Etiquetas y empaques de alto nivel.", features: ["Troqueles Técnicos", "Renderizado 3D", "Arte Final Impresión"] },
+    { title: "Editorial", price: "$220.000", desc: "Catálogos, revistas y presentaciones corporativas potentes.", features: ["Maquetación Pro", "Infografías", "Versión Interactiva"] },
+    { title: "Re-Branding", price: "Cotizar", desc: "Evolución de marcas existentes. Modernización sin perder esencia.", features: ["Auditoría Visual", "Rediseño de Logo", "Transición de Marca"] },
+    { title: "Stationery", price: "$120.000", desc: "Papelería corporativa completa para un impacto profesional.", features: ["Tarjetas Pro", "Hojas Membretadas", "Firmas de Email"] },
+    { title: "Contenido Vertical", price: "$300.000", desc: "Producción de Reels y TikToks para máxima viralidad.", features: ["Guion Creativo", "Edición Dinámica", "Audio Tendencia"] },
+    { title: "Manual de Marca", price: "$180.000", desc: "El libro sagrado de tu empresa. Cómo usar tu marca.", features: ["Usos Prohibidos", "Grilla de Construcción", "Guía de Estilo"] },
+    { title: "Diseño de Merch", price: "$140.000", desc: "Ropa y accesorios que tus clientes querrán usar.", features: ["Mockups Reales", "Diseño Textil", "Fichas Técnicas"] },
+    { title: "Estrategia Digital", price: "$380.000", desc: "Plan de ataque para dominar tu nicho en 6 meses.", features: ["Embudo de Ventas", "Análisis Competencia", "KPIs de Éxito"] }
+];
+---
+
+<BaseLayout seo={seo}>
+    <main class="bg-zinc-950 text-white min-h-screen relative overflow-hidden">
+        
+        <AnimatedBlobs />
+        <GrainyGradient />
+        <TextureOverlay />
+        <CursorFollower />
+
+        <section class="relative z-10 mx-auto px-8 pt-32 pb-24 md:px-12 2xl:max-w-7xl">
+            <div class="max-w-6xl">
+                <span class="text-lime-400 font-mono text-[10px] uppercase tracking-[0.5em] mb-6 block">
+                    Visual Identity & Strategy
+                </span>
+                <Title 
+                    title="BRANDING DISEÑO" 
+                    class="text-6xl md:text-8xl lg:text-[11rem] font-black uppercase tracking-tighter italic leading-[0.75]" 
+                />
+                <p class="mt-12 text-zinc-500 font-mono text-[11px] uppercase tracking-[0.3em] max-w-2xl leading-relaxed">
+                    No creamos dibujos, construimos <span class="text-white">sistemas visuales</span>. Marcas diseñadas para perdurar, escalar y dominar la atención en un mundo saturado de ruido.
+                </p>
+            </div>
+        </section>
+
+        <section class="relative z-10 border-y border-zinc-900 bg-zinc-950/40 backdrop-blur-md">
+            <div class="mx-auto px-8 py-24 md:px-12 2xl:max-w-7xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1px] bg-zinc-900 border border-zinc-900">
+                    {brandingServices.map(item => (
+                        <div class="bg-zinc-950 p-10 hover:bg-zinc-900 transition-all duration-500 group flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-2xl font-black uppercase italic mb-1 tracking-tighter leading-none">{item.title}</h3>
+                                <p class="text-lime-400 font-mono text-[10px] mb-6 uppercase tracking-widest">Desde {item.price}</p>
+                                <p class="text-zinc-500 text-[10px] uppercase font-mono leading-relaxed mb-8 group-hover:text-zinc-400 transition-colors">
+                                    {item.desc}
+                                </p>
+                            </div>
+                            <ul class="space-y-3 pt-6 border-t border-zinc-900">
+                                {item.features.map(feat => (
+                                    <li class="text-[9px] text-zinc-600 font-mono uppercase tracking-widest flex items-center gap-2 group-hover:text-zinc-300">
+                                        <span class="w-1 h-1 bg-lime-400"></span> {feat}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <section class="relative z-10 mx-auto px-8 py-32 md:px-12 2xl:max-w-7xl">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                
+                <div class="group border border-zinc-900 bg-zinc-900/10 backdrop-blur-xl p-12 hover:border-lime-400 transition-all duration-500 lg:col-span-2">
+                    <span class="text-lime-400 font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">Concept</span>
+                    <h2 class="text-5xl md:text-7xl font-black uppercase italic tracking-tighter leading-none mb-6">MÁS QUE<br/>UN LOGO.</h2>
+                    <p class="text-zinc-500 font-mono text-[11px] uppercase tracking-[0.2em] leading-relaxed max-w-xl group-hover:text-zinc-300 transition-colors">
+                        Una marca es una promesa. Analizamos tu competencia y tu audiencia para crear una estética que no solo se vea bien, sino que trabaje para tu negocio 24/7.
+                    </p>
+                </div>
+
+                <div class="group border border-zinc-900 bg-lime-400 p-12 transition-all duration-500 flex flex-col justify-center">
+                    <h2 class="text-4xl font-black uppercase italic tracking-tighter leading-none text-zinc-950 mb-4 italic">IMPACTO<br/>INSTANTÁNEO.</h2>
+                    <p class="text-zinc-800 font-mono text-[10px] uppercase tracking-[0.1em] font-bold">
+                        Tienes 3 segundos para captar la atención. Hacemos que cada milisegundo cuente.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="relative z-10 bg-white text-black py-24">
+            <div class="mx-auto px-8 md:px-12 2xl:max-w-7xl">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+                    <div>
+                        <h3 class="text-6xl font-black uppercase italic tracking-tighter leading-[0.9]">SOCIAL<br/>GROWTH</h3>
+                        <p class="text-zinc-500 uppercase font-mono text-[10px] tracking-widest mt-4 italic">Planes de administración mensual</p>
+                    </div>
+                    <div class="bg-zinc-100 p-6 border-l-4 border-lime-500">
+                        <p class="text-[10px] font-mono uppercase tracking-tighter text-zinc-400 mb-1">Fee Sugerido</p>
+                        <p class="text-3xl font-black italic tracking-tighter">$450.000 <span class="text-sm">/ MES</span></p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-zinc-100 pt-12">
+                    <div>
+                        <span class="text-lime-600 font-black text-2xl italic block mb-2 underline">01. CONTENT</span>
+                        <p class="text-[11px] font-mono uppercase tracking-widest text-zinc-500 leading-loose">Creación de 12 a 15 piezas gráficas mensuales, incluyendo Reels y fotografía de producto básica.</p>
+                    </div>
+                    <div>
+                        <span class="text-lime-600 font-black text-2xl italic block mb-2 underline">02. ADS MGMT</span>
+                        <p class="text-[11px] font-mono uppercase tracking-widest text-zinc-500 leading-loose">Configuración y optimización de campañas pagas en Meta Business Suite para maximizar el ROI.</p>
+                    </div>
+                    <div>
+                        <span class="text-lime-600 font-black text-2xl italic block mb-2 underline">03. REPORTS</span>
+                        <p class="text-[11px] font-mono uppercase tracking-widest text-zinc-500 leading-loose">Análisis de métricas realistas. Sin métricas de vanidad, solo datos que ayudan a vender más.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="relative z-10 py-20 bg-zinc-950">
+            <Cta />
+        </div>
+
+    </main>
+</BaseLayout>
+
+<style is:global>
+    /* Aplicando las reglas de estilo del usuario */
+    h1, h2, h3 {
+        font-weight: 900 !important;
+        letter-spacing: -0.05em;
+    }
+    
+    /* Nota: El componente Title ya debería manejar la tipografía gruesa */
+    /* Las 'A' sin línea media se manejan por la fuente que elijas en el layout principal */
+</style>

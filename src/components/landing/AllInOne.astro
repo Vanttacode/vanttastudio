@@ -1,102 +1,115 @@
 ---
-import { getLangFromUrl, useTranslations } from "@i18n/utils";
-
 const { class: className } = Astro.props;
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
 
-// Definimos los puntos de texto que aparecerán durante el scroll
-const steps = [
+// Textos optimizados para un tono más profesional y directo
+const stats = [
   {
-    title: t("allinone.step1.title") || "Lo mejor de todo?",
-    subtitle: t("allinone.step1.sub") || "Todo en un solo lugar",
-    class: "top-[10%]"
+    title: "Ingeniería de Conversión",
+    description: "Diseñamos interfaces que no solo se ven bien; son máquinas de venta optimizadas para maximizar tu retorno de inversión.",
   },
   {
-    title: t("allinone.step2.title") || "Diseño y Estrategia",
-    subtitle: t("allinone.step2.sub") || "Unidos para convertir",
-    class: "top-[40%] md:left-[50%]"
+    title: "Performance Extremo",
+    description: "Tu sitio cargará en milisegundos. Utilizamos el stack más rápido del mundo para que Google y tus usuarios te amen.",
   },
   {
-    title: t("allinone.step3.title") || "Resultado Final",
-    subtitle: t("allinone.step3.sub") || "Tu marca lista para brillar",
-    class: "top-[80%]"
-  }
+    title: "Software a Medida",
+    description: "Tu negocio es único, tu software también debe serlo. Escalabilidad total sin las limitaciones de las plantillas genéricas.",
+  },
 ];
 ---
 
-<section id="all-in-one" class:list={["all-in-one-section relative bg-zinc-950 text-white overflow-hidden", className]}>
-    <div class="wrapper col-span-12 w-full relative">
+<section id="all-in-one" class:list={["relative overflow-hidden bg-zinc-950", className]}>
+  <div class="px-8 py-12 mx-auto md:px-12 2xl:max-w-7xl lg:py-32">
+    <div class="grid grid-cols-1 gap-4 xl:grid-cols-2 items-stretch">
+      
+      <div class="all-in-one-card p-8 lg:p-20 bg-zinc-900 rounded-4xl lg:rounded-5xl border border-zinc-800 flex flex-col justify-center opacity-0 translate-y-10">
+        <div class="inline-flex items-center gap-4">
+          <div class="w-12 h-0.5 bg-lime-400"></div>
+          <span class="text-xs font-mono font-semibold tracking-widest uppercase text-zinc-500">
+            Filosofía Vantta
+          </span>
+        </div>
         
-        <div class="line-animation-wrapper absolute inset-0 h-full min-h-[150rem] pointer-events-none">
-            <svg id="all-in-one-svg" class="w-full h-full opacity-30" preserveAspectRatio="none" viewBox="0 0 600 1200" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    class="all-in-one-line-path"
-                    d="M -5 0 Q 334 135 189 164 T 227 362 A 1 1 0 0 0 302 268 A 1 1 0 0 0 215 410 C 274 443 324 481 322 552 C 310 703 365 610 983 719"
-                    fill="none"
-                    stroke="#bef264" 
-                    stroke-width="3px">
-                </path>
-            </svg>
+        <h2 class="text-4xl mt-8 font-display lg:text-7xl font-black text-white leading-[0.9] tracking-tighter uppercase italic">
+          Arquitectura <br/> digital <span class="text-lime-400">sin límites.</span>
+        </h2>
+        
+        <div class="text-zinc-400 text-lg mt-10 space-y-6 leading-relaxed font-medium">
+          <p>
+            En <strong class="text-white">Vantta Studio</strong>, no decoramos la web; la construimos. Convertimos desafíos operativos complejos en flujos digitales elegantes y eficientes.
+          </p>
+          <p>
+            Nuestra obsesión por el detalle técnico garantiza que cada proyecto sea una ventaja competitiva real para tu marca.
+          </p>
         </div>
+      </div>
 
-        <div class="relative z-10 min-h-[180rem] px-8 md:px-20">
-            {steps.map((step) => (
-                <div class:list={["absolute flex flex-col max-w-xl transition-opacity duration-500", step.class]}>
-                    <h2 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white">
-                        {step.title}
-                    </h2>
-                    <h3 class="font-display text-2xl md:text-4xl text-lime-500 mt-4 uppercase tracking-widest font-medium">
-                        {step.subtitle}
-                    </h3>
-                </div>
-            ))}
-        </div>
+      <div class="all-in-one-stats grid grid-cols-1 items-center rounded-4xl lg:rounded-5xl gap-12 h-full p-8 lg:p-20 list-none bg-lime-400 opacity-0 translate-y-10">
+        <ol role="list" class="space-y-12">
+          {stats.map((stat) => (
+            <li class="stat-item border-b border-black/10 pb-8 last:border-0 last:pb-0">
+              <h3 class="text-2xl lg:text-4xl tracking-tighter font-black text-black font-display uppercase italic leading-none">
+                {stat.title}
+              </h3>
+              <p class="mt-4 text-base lg:text-lg text-zinc-900 leading-snug font-semibold max-w-md">
+                {stat.description}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </div>
+      
     </div>
+  </div>
 </section>
 
-<style>
-    .all-in-one-section {
-        /* Evita saltos visuales en el scroll */
-        contain: paint;
-    }
-</style>
-
 <script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
-    import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-    gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
+  gsap.registerPlugin(ScrollTrigger);
 
-    function initAllInOne() {
-        const linePath = document.querySelector(".all-in-one-line-path");
-        if (!linePath) return;
+  function initAllInOne() {
+    // Animación de los contenedores principales
+    gsap.to(".all-in-one-card, .all-in-one-stats", {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      stagger: 0.2,
+      ease: "expo.out",
+      scrollTrigger: {
+        trigger: "#all-in-one",
+        start: "top 75%",
+      }
+    });
 
-        // Inicializamos la línea oculta
-        gsap.set(linePath, { drawSVG: 0 });
+    // Animación de los items de la lista (stagger)
+    gsap.from(".stat-item", {
+      opacity: 0,
+      x: 30,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: "power3.out",
+      delay: 0.4,
+      scrollTrigger: {
+        trigger: ".all-in-one-stats",
+        start: "top 80%",
+      }
+    });
+  }
 
-        // Animación de la línea basada en el scroll
-        gsap.timeline({
-            scrollTrigger: {
-                trigger: ".all-in-one-section",
-                start: "top top",
-                end: "bottom bottom",
-                scrub: 1.5,
-                markers: false,
-            },
-            defaults: { ease: "none" },
-        }).to(
-            linePath,
-            {
-                drawSVG: "100%",
-            },
-            0
-        );
-    }
-
-    // Compatibilidad con Astro Transitions
-    document.addEventListener("astro:page-load", initAllInOne);
-    // Ejecución inicial
-    initAllInOne();
+  document.addEventListener("astro:page-load", initAllInOne);
+  initAllInOne();
 </script>
+
+<style>
+  .rounded-4xl { border-radius: 2.5rem; }
+  @media (min-width: 1024px) {
+    .rounded-5xl { border-radius: 3.5rem; }
+  }
+  
+  /* Mejoramos la legibilidad del texto en el fondo lima */
+  .all-in-one-stats p {
+    text-wrap: balance;
+  }
+</style>

@@ -4,68 +4,108 @@ import designSvg from "@assets/images/services/creative-designer-doing-multitask
 import mobileSvg from "@assets/images/services/mobile-app-ui-ux-design.svg?raw";
 import seoSvg from "@assets/images/services/seo-link-building.svg?raw";
 import websiteSvg from "@assets/images/services/website-ui-ux-development.svg?raw";
-import { getLangFromUrl, useTranslations } from "@i18n/utils";
-
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
 
 const { class: className } = Astro.props;
 
-// Estructura de servicios de Vantta Studio
 const points = [
     {
-        title: t("websites.title"),
-        content: t("websites.content"),
+        tag: "Performance & SEO",
+        title: "Desarrollo Web",
+        content: "Páginas web de alto impacto creadas con <strong>Astro, React y Vue</strong>. Optimizamos la velocidad y el SEO para convertir visitantes en clientes reales.",
         image: websiteSvg,
+        link: "/services/web-development"
     },
     {
-        title: t("apps.title"),
-        content: t("apps.content"),
+        tag: "Software a medida",
+        title: "Gestión de Empresas",
+        content: "Programamos soluciones robustas: sistemas de <strong>Gestión de Clientes (CRM), Control de Inventario y ERP</strong> para automatizar tu operativa.",
         image: mobileSvg,
+        link: "/services/software-solutions"
     },
     {
-        title: t("uiux.title"),
-        content: t("uiux.content"),
+        tag: "Diseño Estratégico",
+        title: "Marca e Identidad",
+        content: "Creamos o transformamos tu imagen con un <strong>Re-branding estratégico</strong>. Identidad visual diseñada para impulsar el valor real de tu negocio.",
         image: designSvg,
+        link: "/services/branding"
     },
     {
-        title: t("seo.title"),
-        content: t("seo.content"),
+        tag: "Crecimiento Comercial",
+        title: "Vender más y mejor",
+        content: "Estrategias comerciales de alto nivel y procesos de atención al cliente. Potenciamos tus ventas mediante <strong>inducciones de alto impacto</strong>.",
         image: seoSvg,
-    },
-    {
-        title: t("advertising.title"),
-        content: t("advertising.content"),
-        image: advertisingSvg,
+        link: "/services/sales-strategy"
     },
 ];
 ---
 
-<section id="services" class:list={["section home-dark-section services-section relative bg-zinc-950 text-white", className]}>
-    <div class="wrapper col-span-12 h-screen w-full overflow-hidden">
-        <h2 class="sr-only">{t("services")}</h2>
+<section id="services-scroll" class:list={["relative bg-zinc-950 text-white", className]}>
+    <div class="wrapper h-screen w-full flex items-center justify-center overflow-hidden">
         
-        <div class="indicators absolute left-4 top-0 mt-[10vh] hidden h-[80vh] w-1 flex-col justify-between gap-2 z-10">
-            {points.map(() => <div class="indicator w-full grow bg-zinc-800 transition-colors duration-300" />)}
+        <div class="indicators absolute left-8 top-1/2 -translate-y-1/2 hidden h-[200px] w-[2px] flex-col justify-between gap-4 z-50">
+            {points.map(() => <div class="indicator-bar w-full grow bg-zinc-800 transition-colors duration-300" />)}
         </div>
 
-        {
-            points.map(({ title, content, image }) => (
-                <div class="point flex h-screen w-full flex-col items-center justify-center gap-x-20 gap-y-12 p-8 md:p-16 md:flex-row lg:gap-x-40">
-                    <div class="hidden w-full max-w-sm lg:block opacity-80 shadow-2xl">
-                        <Fragment set:html={image} />
+        <div class="container-inner relative h-full w-full max-w-7xl mx-auto px-8 md:px-12">
+            {
+                points.map((point, i) => (
+                    <div class="point-slide absolute inset-0 flex flex-col md:flex-row items-center justify-center gap-12">
+                        
+                        <div class="illustration hidden lg:block w-1/3 opacity-100">
+                            <Fragment set:html={point.image} />
+                        </div>
+
+                        <article class="content-box flex flex-col gap-8 md:w-2/3 items-start">
+                            <div class="flex items-center gap-4">
+                                <span class="h-[2px] w-12 bg-lime-400"></span>
+                                <span class="font-mono text-[10px] uppercase tracking-[0.4em] text-lime-400">
+                                    {point.tag}
+                                </span>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <h3 class="title-text text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-[0.85] text-white">
+                                    {point.title}
+                                </h3>
+                                <p class="description-text text-xl md:text-3xl text-zinc-400 font-light max-w-2xl leading-tight" set:html={point.content} />
+                            </div>
+
+                            <a 
+                                href={point.link}
+                                class="group/btn relative inline-flex items-center gap-4 px-8 py-4 border border-zinc-800 hover:border-lime-400/50 transition-all duration-300"
+                            >
+                                <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-white group-hover/btn:text-lime-400 transition-colors">
+                                    MÁS INFO
+                                </span>
+                                <svg class="w-4 h-4 text-zinc-500 group-hover/btn:text-lime-400 group-hover/btn:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </a>
+                        </article>
                     </div>
-                    <article class="flex flex-col gap-8 md:gap-14">
-                        <h3 class="font-display text-4xl uppercase md:text-5xl lg:text-7xl font-bold tracking-tighter text-white">
-                            {title}
-                        </h3>
-                        <p class="max-w-xl text-lg md:text-xl text-zinc-400 leading-relaxed" set:html={content} />
-                    </article>
-                </div>
-            ))
-        }
+                ))
+            }
+        </div>
     </div>
 </section>
+
+<style is:global>
+    #services-scroll .point-slide {
+        visibility: hidden;
+        opacity: 0;
+    }
+    
+    #services-scroll article p strong {
+        color: #fff;
+        font-weight: 700;
+    }
+
+    #services-scroll .illustration svg {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+</style>
 
 <script>
     import { gsap } from "gsap";
@@ -74,54 +114,57 @@ const points = [
     gsap.registerPlugin(ScrollTrigger);
 
     function initServices() {
-        const points = gsap.utils.toArray(".point") as HTMLElement[];
-        const indicators = gsap.utils.toArray(".indicator") as HTMLElement[];
-        if (points.length === 0) return;
+        const slides = gsap.utils.toArray(".point-slide") as HTMLElement[];
+        const indicators = gsap.utils.toArray(".indicator-bar") as HTMLElement[];
+        
+        if (slides.length === 0) return;
 
-        const height = 100 * points.length;
-        gsap.set(".indicators", { display: "flex" });
-
-        // Timeline principal para el cambio de estados e indicadores
         const tl = gsap.timeline({
             scrollTrigger: {
-                trigger: "#services",
-                start: "top center",
-                end: `+=${height}%`,
-                scrub: 0.5,
-            },
-        });
-
-        // Timeline para bloquear (pin) la sección en pantalla
-        ScrollTrigger.create({
-            trigger: ".services-section .wrapper",
-            start: "top top",
-            end: `+=${height}%`,
-            scrub: 0.5,
-            pin: true,
-            pinSpacing: true,
-            snap: {
-                snapTo: 1 / (points.length - 1),
-                duration: { min: 0.2, max: 0.5 },
-                delay: 0.1,
-                ease: "power1.inOut"
+                trigger: "#services-scroll",
+                start: "top top",
+                end: `+=${slides.length * 150}%`,
+                pin: true,
+                scrub: 1,
             }
         });
 
-        points.forEach((elem, i) => {
-            gsap.set(elem, { position: "absolute", top: 0, left: 0 });
+        slides.forEach((slide, i) => {
+            if (i === 0) {
+                gsap.set(slide, { autoAlpha: 1, y: 0 });
+                gsap.set(indicators[0], { backgroundColor: "#a3e635" });
+            } else {
+                gsap.set(slide, { autoAlpha: 0, y: 100 });
+            }
 
-            // Entrada de contenido
-            tl.to(indicators[i], { backgroundColor: "white", duration: 0.25 }, i);
-            tl.from(elem.querySelector("svg"), { autoAlpha: 0, scale: 0.8 }, i);
-            tl.from(elem.querySelector("article"), { autoAlpha: 0, x: 50 }, i);
+            if (i > 0) {
+                tl.to(slide, { 
+                    autoAlpha: 1, 
+                    y: 0, 
+                    duration: 1 
+                }, i);
+                
+                tl.to(indicators[i], { 
+                    backgroundColor: "#a3e635", 
+                    duration: 0.5 
+                }, i);
+            }
 
-            // Salida de contenido (excepto el último)
-            if (i !== points.length - 1) {
-                tl.to(indicators[i], { backgroundColor: "#3f3f46", duration: 0.25 }, i + 0.75);
-                tl.to(elem.querySelector("article"), { autoAlpha: 0, x: -50 }, i + 0.75);
-                tl.to(elem.querySelector("svg"), { autoAlpha: 0, scale: 1.2 }, i + 0.75);
+            if (i < slides.length - 1) {
+                tl.to(slide, { 
+                    autoAlpha: 0, 
+                    y: -100, 
+                    duration: 1 
+                }, i + 0.5);
+                
+                tl.to(indicators[i], { 
+                    backgroundColor: "#27272a", 
+                    duration: 0.5 
+                }, i + 0.5);
             }
         });
+
+        gsap.set(".indicators", { display: "flex" });
     }
 
     document.addEventListener("astro:page-load", initServices);

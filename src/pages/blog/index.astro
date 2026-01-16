@@ -3,14 +3,20 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import type { AstroSeoProps } from "@astrolib/seo";
 import Articles from "@components/blog/Articles.astro";
 
+// Importaciones de tus componentes visuales
+import TextureOverlay from "@components/global/TextureOverlay.astro";
+import CursorFollower from "@components/global/CursorFollower.astro";
+import GrainyGradient from "@components/global/GrainyGradient.astro";
+import AnimatedBlobs from "@components/global/BlobAnimation.astro";
+
 const seo: AstroSeoProps = {
-    title: "Vantta Studio Blog | Diseño Web, Desarrollo y Estrategia Digital",
+    title: "Vantta Studio Labs | Diseño Web, Desarrollo y Estrategia Digital",
     description:
-        "Explora el blog de Vantta Studio para descubrir las últimas tendencias en diseño minimalista, desarrollo con Astro y estrategias SEO de alto rendimiento.",
-    canonical: "https://vantta.studio/blog/", // Asumiendo el nuevo dominio
+        "Explora Vantta Studio Labs para descubrir las últimas tendencias en diseño minimalista, desarrollo con Astro y experimentos digitales de alto rendimiento.",
+    canonical: "https://vantta.studio/labs/",
     openGraph: {
-        url: "https://vantta.studio/blog",
-        title: "Vantta Studio Blog: Insights sobre Diseño y Tecnología",
+        url: "https://vantta.studio/labs",
+        title: "Vantta Studio Labs: Experimentos sobre Diseño y Tecnología",
         description:
             "Consejos expertos, análisis de tendencias y guías sobre el futuro de la web por el equipo de Vantta Studio.",
         images: [
@@ -18,14 +24,14 @@ const seo: AstroSeoProps = {
                 url: "https://vantta.studio/opengraph/social-og.jpg",
                 width: 1200,
                 height: 630,
-                alt: "Open Graph de Vantta Studio Blog",
+                alt: "Open Graph de Vantta Studio Labs",
                 type: "image/jpeg",
             },
             {
                 url: "https://vantta.studio/opengraph/twitter-og.jpg",
                 width: 1200,
                 height: 1200,
-                alt: "Twitter Open Graph de Vantta Studio Blog",
+                alt: "Twitter Open Graph de Vantta Studio Labs",
                 type: "image/jpeg",
             }
         ],
@@ -40,7 +46,26 @@ const seo: AstroSeoProps = {
 ---
 
 <BaseLayout seo={seo}>
-    <main class="bg-zinc-950">
-        <Articles />
+    <main class="bg-zinc-950 relative overflow-hidden min-h-screen">
+        
+        <AnimatedBlobs />
+        <GrainyGradient />
+        <TextureOverlay />
+        <CursorFollower />
+
+        <div class="relative z-10">
+            <Articles />
+        </div>
+
     </main>
 </BaseLayout>
+
+<style is:global>
+    /* Estilo limpio para los títulos del componente Articles si fuera necesario */
+    h1, h2, .labs-title {
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        font-style: italic;
+    }
+</style>

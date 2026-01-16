@@ -1,0 +1,152 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import type { AstroSeoProps } from "@astrolib/seo";
+import Title from "@components/global/Title.astro";
+import Cta from "@components/landing/Cta.astro";
+
+// Componentes visuales de fondo
+import TextureOverlay from "@components/global/TextureOverlay.astro";
+import CursorFollower from "@components/global/CursorFollower.astro";
+import GrainyGradient from "@components/global/GrainyGradient.astro";
+import AnimatedBlobs from "@components/global/BlobAnimation.astro";
+
+const seo: AstroSeoProps = {
+    title: "Vende Mejor | Vantta Performance",
+    description: "Entrenamiento en ventas, psicología organizacional y estrategias de marketing de alto rendimiento.",
+};
+
+const performanceServices = [
+    { title: "Sales Mastery", price: "$450.000", desc: "Curso intensivo de cierre de ventas y manejo de objeciones.", features: ["Técnicas de Persuasión", "Roleplay en Vivo", "Psicología del Comprador"] },
+    { title: "Charlas Equipo", price: "$300.000", desc: "Sesiones de alto impacto para alinear objetivos comerciales.", features: ["Motivación Realista", "Sinergia de Grupo", "Cultura de Ganadores"] },
+    { title: "Retiro High Performance", price: "Cotizar", desc: "Jornada inmersiva fuera de la oficina con psicólogos expertos.", features: ["Outdoor Training", "Gestión de Estrés", "Cohesión de Liderazgo"] },
+    { title: "Marketing Estratégico", price: "$500.000", desc: "Plan de ataque para posicionar tu producto por encima del resto.", features: ["Análisis de Nicho", "Funnel de Conversión", "Branding de Ventas"] },
+    { title: "Psicología Org.", price: "$350.000", desc: "Optimización del clima laboral para aumentar la productividad.", features: ["Diagnóstico de Equipo", "Resolución Conflictos", "Eficiencia Mental"] },
+    { title: "Consultoría 1 a 1", price: "$120.000", desc: "Sesión privada para desbloquear cuellos de botella en tu negocio.", features: ["Análisis de Métricas", "Estrategia Directa", "Roadmap de Crecimiento"] },
+    { title: "Optimización Work", price: "$250.000", desc: "Sistemas para trabajar menos pero producir mucho más.", features: ["Gestión del Tiempo", "Automatización Humana", "Deep Work Method"] },
+    { title: "Venta Consultiva", price: "$400.000", desc: "Estrategias para B2B y servicios de alto ticket.", features: ["Ciclos de Venta Largos", "Nurturing de Leads", "Cierre Corporativo"] },
+    { title: "Liderazgo Alpha", price: "$420.000", desc: "Formación para gerentes y dueños que dirigen equipos.", features: ["Comunicación Asertiva", "Delegación Efectiva", "Autoridad Natural"] },
+    { title: "Neuromarketing", price: "$380.000", desc: "Uso de ciencia para entender cómo decide el cerebro humano.", features: ["Sesgos Cognitivos", "Disparadores Mentales", "Diseño de Oferta Irresistible"] },
+    { title: "Workshop Digital", price: "$150.000", desc: "Taller práctico sobre herramientas digitales de venta.", features: ["CRM Training", "LinkedIn Prospecting", "WhatsApp Business Pro"] },
+    { title: "Cultura de Datos", price: "$280.000", desc: "Aprende a vender basándote en números, no en suposiciones.", features: ["Interpretación KPIs", "Tracking de Embudo", "Forecast de Ventas"] }
+];
+---
+
+<BaseLayout seo={seo}>
+    <main class="bg-zinc-950 text-white min-h-screen relative overflow-hidden">
+        
+        <AnimatedBlobs />
+        <GrainyGradient />
+        <TextureOverlay />
+        <CursorFollower />
+
+        <section class="relative z-10 mx-auto px-8 pt-32 pb-24 md:px-12 2xl:max-w-7xl">
+            <div class="max-w-6xl">
+                <span class="text-lime-400 font-mono text-[10px] uppercase tracking-[0.5em] mb-6 block">
+                    High Performance Strategy
+                </span>
+                <Title 
+                    title="VENDE MÁS MEJOR" 
+                    class="text-6xl md:text-8xl lg:text-[11rem] font-black uppercase tracking-tighter italic leading-[0.75]" 
+                />
+                <p class="mt-12 text-zinc-500 font-mono text-[11px] uppercase tracking-[0.3em] max-w-2xl leading-relaxed">
+                    Optimizamos la <span class="text-white">psicología y la estrategia</span> de tu equipo. No se trata de trabajar más horas, sino de dominar el proceso para vender más y trabajar mejor.
+                </p>
+            </div>
+        </section>
+
+        <section class="relative z-10 border-y border-zinc-900 bg-zinc-950/40 backdrop-blur-md">
+            <div class="mx-auto px-8 py-24 md:px-12 2xl:max-w-7xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1px] bg-zinc-900 border border-zinc-900">
+                    {performanceServices.map(item => (
+                        <div class="bg-zinc-950 p-10 hover:bg-zinc-900 transition-all duration-500 group flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-2xl font-black uppercase italic mb-1 tracking-tighter leading-none">{item.title}</h3>
+                                <p class="text-lime-400 font-mono text-[10px] mb-6 uppercase tracking-widest">Desde {item.price}</p>
+                                <p class="text-zinc-500 text-[10px] uppercase font-mono leading-relaxed mb-8 group-hover:text-zinc-400 transition-colors">
+                                    {item.desc}
+                                </p>
+                            </div>
+                            <ul class="space-y-3 pt-6 border-t border-zinc-900">
+                                {item.features.map(feat => (
+                                    <li class="text-[9px] text-zinc-600 font-mono uppercase tracking-widest flex items-center gap-2 group-hover:text-zinc-300">
+                                        <span class="w-1 h-1 bg-lime-400"></span> {feat}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <section class="relative z-10 mx-auto px-8 py-32 md:px-12 2xl:max-w-7xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                <div class="group relative overflow-hidden border border-zinc-900 bg-zinc-900/10 backdrop-blur-xl p-12 hover:border-lime-400 transition-all duration-500">
+                    <span class="text-lime-400 font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">Organizational Health</span>
+                    <h2 class="text-5xl font-black uppercase italic tracking-tighter leading-none mb-6">MENTALIDAD<br/>INDUSTRIAL.</h2>
+                    <p class="text-zinc-500 font-mono text-[11px] uppercase tracking-[0.2em] leading-relaxed group-hover:text-zinc-300 transition-colors">
+                        Un equipo quemado no vende. Implementamos dinámicas dirigidas por psicólogos para eliminar cuellos de botella emocionales y disparar la eficiencia.
+                    </p>
+                    <div class="text-zinc-900 font-black text-8xl italic absolute -right-4 -bottom-4 opacity-20 group-hover:text-lime-400 transition-colors pointer-events-none text-right">PSIC</div>
+                </div>
+
+                <div class="group relative overflow-hidden border border-zinc-900 bg-lime-400 p-12 transition-all duration-500">
+                    <span class="text-zinc-950 font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">Team Off-sites</span>
+                    <h2 class="text-5xl font-black uppercase italic tracking-tighter leading-none mb-6 text-zinc-950">RETIROS<br/>DE ALTO NIVEL.</h2>
+                    <p class="text-zinc-900 font-mono text-[11px] uppercase tracking-[0.2em] leading-relaxed font-bold">
+                        Sacamos a tu equipo de la zona de confort. Jornadas de estrategia y entrenamiento físico/mental diseñadas para forjar líderes.
+                    </p>
+                    <div class="mt-8">
+                        <a href="#contacto" class="inline-block border-2 border-zinc-950 px-6 py-2 text-[10px] font-mono uppercase tracking-[0.2em] font-black hover:bg-zinc-950 hover:text-white transition-all">Consultar Fechas</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="relative z-10 bg-white text-black py-24">
+            <div class="mx-auto px-8 md:px-12 2xl:max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+                <div>
+                    <h3 class="text-6xl font-black uppercase italic tracking-tighter leading-[0.9] mb-4">SISTEMA<br/>GANADOR</h3>
+                    <p class="text-zinc-500 uppercase font-mono text-[10px] tracking-widest">Optimización del flujo de trabajo y ventas</p>
+                </div>
+                <div class="space-y-12">
+                    <div class="flex gap-6 items-start">
+                        <span class="text-4xl font-black italic text-lime-500">01</span>
+                        <div>
+                            <h4 class="font-black uppercase text-xl italic italic">Auditoría de Procesos</h4>
+                            <p class="text-[11px] font-mono text-zinc-500 uppercase tracking-widest mt-2">Encontramos dónde estás perdiendo dinero y tiempo.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6 items-start">
+                        <span class="text-4xl font-black italic text-lime-500">02</span>
+                        <div>
+                            <h4 class="font-black uppercase text-xl italic italic">Inyección de Estrategia</h4>
+                            <p class="text-[11px] font-mono text-zinc-500 uppercase tracking-widest mt-2">Capacitamos a tu equipo con herramientas de persuasión modernas.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6 items-start">
+                        <span class="text-4xl font-black italic text-lime-500">03</span>
+                        <div>
+                            <h4 class="font-black uppercase text-xl italic italic">Escalamiento Real</h4>
+                            <p class="text-[11px] font-mono text-zinc-500 uppercase tracking-widest mt-2">Medimos, iteramos y multiplicamos los resultados.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="relative z-10 py-20 bg-zinc-950">
+            <Cta />
+        </div>
+
+    </main>
+</BaseLayout>
+
+<style is:global>
+    h1, h2, h3, h4 {
+        font-weight: 950 !important;
+        letter-spacing: -0.05em;
+    }
+</style>

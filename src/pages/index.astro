@@ -1,57 +1,76 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import Hero from "@components/landing/Hero.astro";
-import Services from "@components/landing/Services.astro";
-import Tagline from "@components/landing/Tagline.astro";
-import WorkPreview from "@components/landing/WorkPreview.astro";
-import Faq from "@components/landing/Faq.astro";
 
-// Importamos los componentes de atmósfera que definen a Vantta
-import GrainyGradient from "@components/global/GrainyGradient.astro";
+// Componentes Globales
 import TextureOverlay from "@components/global/TextureOverlay.astro";
 import CursorFollower from "@components/global/CursorFollower.astro";
+import GrainyGradient from "@components/global/GrainyGradient.astro";
+
+// Componentes de la Landing
+import Hero from "@components/landing/Hero.astro";
+import WorkPreview from "@components/landing/WorkPreview.astro"; // Grilla de Proyectos
+import Services from "@components/landing/Services.astro";
+import Tagline from "@components/landing/Tagline.astro"; // "Convertimos la complejidad..."
+import AllInOne from "@components/landing/AllInOne.astro"; // Los 3 puntos clave
+import Testimonials from "@components/landing/Testimonials.astro"; // Casos de éxito
+import Faq from "@components/landing/Faq.astro";
+import Cta from "@components/landing/Cta.astro"; 
 ---
 
 <BaseLayout>
-    <TextureOverlay />
+  <TextureOverlay />
+  <CursorFollower />
 
-    <CursorFollower />
+  <main class="relative bg-zinc-950">
+    <div class="relative min-h-screen overflow-hidden border-b border-zinc-900">
+      <GrainyGradient class="absolute inset-0 opacity-40" />
+      <Hero />
+    </div>
 
-    <main class="relative bg-zinc-950">
-        <div class="relative min-h-screen overflow-hidden">
-            <GrainyGradient class="absolute inset-0 opacity-40" />
-            <Hero />
-        </div>
+    <div class="relative z-20 bg-zinc-950">
+      <WorkPreview class="!pt-20 pb-20 lg:!pt-36 lg:pb-40" />
+    </div>
 
-        <WorkPreview class="relative z-10 !pt-20 pb-20 lg:!pt-36 lg:pb-40 bg-zinc-950" />
+    <section class="relative z-10 bg-zinc-950">
+      <Services />
+    </section>
 
-        <section class="border-y border-zinc-800 bg-zinc-900/30">
-            <Services />
-        </section>
+    <AllInOne />
 
-        <Tagline />
+    <Testimonials />
 
-        <section class="bg-zinc-950 py-20">
-            <Faq />
-        </section>
-    </main>
+    <Tagline />
+
+    <section class="relative z-10 bg-zinc-950 py-20">
+      <Faq />
+    </section>
+
+    <Cta />
+  </main>
 </BaseLayout>
 
 <style is:global>
-    /* Aseguramos que el scroll sea suave en todo el sitio */
-    html {
-        scroll-behavior: smooth;
-        background-color: #09090b; /* zinc-950 */
-    }
+  html {
+    scroll-behavior: smooth;
+    background-color: #09090b;
+  }
 
-    /* Estilo de selección personalizado con el color de Vantta */
-    ::selection {
-        background-color: #a3e635; /* lime-400 */
-        color: #000;
-    }
+  ::selection {
+    background-color: #a3e635;
+    color: #000;
+  }
 
-    /* Ocultar scrollbar para un look más limpio (opcional) */
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
+  body {
+    overflow-x: hidden;
+  }
+
+  main {
+    position: relative;
+    width: 100%;
+  }
+
+  /* Utilidades de bordes */
+  .rounded-4xl { border-radius: 2.5rem; }
+  .rounded-5xl { border-radius: 3.5rem; }
+  .rounded-6xl { border-radius: 4.5rem; }
 </style>

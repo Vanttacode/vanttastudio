@@ -1,18 +1,17 @@
 ---
 /**
  * TextureOverlay.astro
- * Este componente añade una capa global de ruido/grano.
- * Asegúrate de tener una imagen de textura pequeña (ej. 100x100px) en /public/images/texture.png
+ * Añade una capa global de grano analógico.
+ * Optimizado para no depender de archivos externos mediante SVG DataURI.
  */
 ---
 
 <div class="texture-wrap">
-    <div class="texture-image"></div>
+    <div class="texture-grain"></div>
 </div>
 
 <style>
     .texture-wrap {
-        /* Se mantiene por encima de todo pero sin bloquear clics */
         pointer-events: none;
         z-index: 9999; 
         position: fixed;
@@ -22,38 +21,35 @@
         overflow: hidden;
     }
 
-    .texture-image {
-        width: 200%; /* Más grande que el viewport para permitir movimiento */
-        height: 200%;
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        background-image: url('/images/texture.png'); /* Ruta a tu textura */
-        background-repeat: repeat;
-        background-size: 150px; /* Ajusta según el grano que desees */
-        opacity: 0.04; /* Opacidad sutil para look premium de Vantta */
+    .texture-grain {
+        /* Usamos un SVG de ruido fractal como fallback o reemplazo del PNG */
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         
-        /* Animación de grano analógico */
-        animation: grain-animation 0.8s steps(10) infinite;
+        width: 300%; 
+        height: 300%;
+        position: absolute;
+        top: -100%;
+        left: -100%;
+        background-repeat: repeat;
+        background-size: 256px;
+        opacity: 0.045; /* Ajustado para el look premium de Vantta */
+        
+        /* Animación con steps para simular fotogramas de película */
+        animation: grain-jump 0.6s steps(6) infinite;
         will-change: transform;
     }
 
-    @keyframes grain-animation {
+    @keyframes grain-jump {
         0%, 100% { transform: translate(0, 0); }
-        10% { transform: translate(-5%, -5%); }
-        20% { transform: translate(-10%, 5%); }
-        30% { transform: translate(5%, -10%); }
-        40% { transform: translate(-5%, 15%); }
-        50% { transform: translate(-10%, 5%); }
-        60% { transform: translate(15%, 0); }
-        70% { transform: translate(0, 10%); }
-        80% { transform: translate(-15%, 0); }
-        90% { transform: translate(10%, 5%); }
+        20% { transform: translate(-5%, -10%); }
+        40% { transform: translate(-15%, 5%); }
+        60% { transform: translate(7%, -12%); }
+        80% { transform: translate(-2%, 15%); }
     }
 
-    /* Reducir movimiento si el usuario prefiere movimiento reducido */
+    /* Soporte para usuarios que prefieren no ver parpadeos/movimiento */
     @media (prefers-reduced-motion: reduce) {
-        .texture-image {
+        .texture-grain {
             animation: none;
             opacity: 0.03;
             width: 100%;

@@ -1,146 +1,185 @@
 ---
-import LinkBlend from "@components/global/LinkBlend.astro";
-import { getLangFromUrl, useTranslations, useTranslatedPath } from "@i18n/utils";
+const { class: className } = Astro.props;
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-const translatePath = useTranslatedPath(lang);
+// Textos fijos en español para eliminar la dependencia de i18n
+const dynamicWords = ["WEBS", "SOFTWARE", "MARCAS", "SISTEMAS"];
+
+const heroTitleMain = "Creamos";
+const heroSubtitle = "Arquitectura digital de alto rendimiento. Diseñamos sistemas y plataformas creadas para escalar la operativa e impacto de tu negocio.";
+const contactText = "Contacto";
 ---
 
-<section id="hero" class="relative min-h-screen overflow-hidden bg-zinc-950 text-white selection:bg-lime-400 selection:text-black">
-    <div class="container mx-auto flex min-h-screen flex-col items-center justify-center px-4 py-20 text-center">
+<section id="hero" class:list={["relative min-h-[110vh] overflow-hidden bg-zinc-950 text-white selection:bg-lime-400 selection:text-black flex items-center justify-center pt-32 pb-40", className]}>
+    
+    <div id="hero-light-wrapper" class="pointer-events-none absolute inset-0 z-10 overflow-hidden">
+        <div id="mouse-follower-light" class="absolute h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-lime-400/15 blur-[130px] opacity-0"></div>
+    </div>
+
+    <div class="container mx-auto flex flex-col items-center justify-center px-4 text-center relative z-20">
         
-        <h1 class="hero-title relative z-10 font-display font-black uppercase tracking-tighter text-[15vw] sm:text-[12vw] lg:text-[11rem] w-full">
-            <span class="block leading-[0.8] mb-2">{t("hero.title.main")}</span>
+        <h1 class="hero-title pt-16 font-display font-black uppercase text-[13vw] sm:text-[12vw] lg:text-[11rem] w-full leading-[0.8] tracking-[0.05em]">
+            <span class="block mb-4 overflow-hidden">
+                <span class="inline-block translate-y-full hero-main-title">{heroTitleMain}</span>
+            </span>
             
-            <div class="relative flex justify-center text-lime-400">
-                <div class="word-wrapper relative h-[1.1em] w-full flex items-center justify-center">
-                    <span class="word-item absolute whitespace-nowrap opacity-0">WEBS</span>
-                    <span class="word-item absolute whitespace-nowrap opacity-0">{t("hero.title.2")}</span>
-                    <span class="word-item absolute whitespace-nowrap opacity-0">{t("hero.title.3")}</span>
-                    <span class="word-item absolute whitespace-nowrap opacity-0">{t("hero.title.4")}</span>
+            <div class="relative flex justify-center text-lime-400 italic">
+                <div class="word-wrapper relative h-[1.1em] w-full flex items-center justify-center overflow-hidden">
+                    {dynamicWords.map((word) => (
+                        <span class="word-item absolute whitespace-nowrap opacity-0">{word}</span>
+                    ))}
                 </div>
             </div>
         </h1>
 
-        <div class="hero-content relative z-10 mt-16 flex max-w-2xl flex-col items-center gap-10">
-            <p class="font-mono text-base leading-relaxed text-zinc-400 md:text-lg px-4">
-                {t("hero.subtitle")}
+        <div class="hero-content mt-24 flex max-w-3xl flex-col items-center gap-10 opacity-0">
+            <p class="font-mono text-sm leading-relaxed text-zinc-400 md:text-lg px-4 uppercase tracking-[0.2em] max-w-3xl">
+                {heroSubtitle}
             </p>
             
-            <div class="flex flex-col items-center gap-8">
+            <div class="flex flex-col items-center gap-16">
                 <a
-                    href={translatePath("/contact/")}
-                    data-cursor-hover
-                    class="group relative flex h-14 min-w-[240px] items-center justify-center overflow-hidden rounded-full bg-white px-10 py-4 font-bold uppercase tracking-widest text-black transition-all hover:bg-lime-400 active:scale-95"
+                    href="/contact"
+                    class="group relative flex h-16 min-w-[280px] items-center justify-center overflow-hidden rounded-full border border-white/10 bg-white px-10 py-4 font-bold uppercase tracking-[0.2em] text-black transition-all hover:bg-lime-400 hover:border-lime-400 active:scale-95"
                 >
-                    <span class="relative z-10">{t("contact")}</span>
+                    <span class="relative z-10">{contactText}</span>
                 </a>
 
-                <button 
-                    id="go-projects-button" 
-                    class="group flex flex-col items-center gap-2 font-bold uppercase tracking-widest text-zinc-400 transition-colors hover:text-white"
-                >
-                    <span class="text-[10px] tracking-[0.3em]">{t("or")} {t("hero.scroll")}</span>
-                    <div class="h-10 w-px bg-zinc-800 transition-all group-hover:h-16 group-hover:bg-lime-400"></div>
-                </button>
+                <div class="group/brand flex flex-col items-center gap-4 cursor-default">
+                    <span class="text-[10px] font-bold uppercase tracking-[0.6em] text-zinc-500 group-hover/brand:text-lime-400 transition-colors duration-500">
+                        VANTTA STUDIO
+                    </span>
+                    <div class="relative h-20 w-px bg-zinc-800 overflow-hidden">
+                        <div class="scroll-line absolute top-0 left-0 w-full h-full bg-lime-400"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="pointer-events-none absolute inset-0 z-0">
-        <div class="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/10 blur-[120px]"></div>
+        <div class="absolute right-[-5%] top-[10%] h-[400px] w-[400px] rounded-full bg-violet-600/5 blur-[120px]"></div>
+        <div class="absolute bottom-0 left-0 w-full h-80 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent"></div>
     </div>
 </section>
 
 <style>
     .hero-title {
-        visibility: hidden; /* Se activa con GSAP */
-    }
-
-    .word-wrapper {
-        perspective: 1000px;
+        perspective: 1200px;
+        letter-spacing: 0.05em;
     }
 
     .word-item {
-        display: block;
-        width: 100%;
-        text-align: center;
-        will-change: opacity, transform;
-        line-height: 1;
+        will-change: transform, opacity;
+        transform-style: preserve-3d;
+    }
+
+    @keyframes linePulse {
+        0% { transform: translateY(-100%); }
+        50% { transform: translateY(0%); }
+        100% { transform: translateY(100%); }
+    }
+
+    .scroll-line {
+        animation: linePulse 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .group\/brand:hover .scroll-line {
+        animation-duration: 1.5s;
+    }
+
+    #hero {
+        backface-visibility: hidden;
+        transform: translateZ(0);
     }
 </style>
 
 <script>
     import { gsap } from "gsap";
-    import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-    import { SplitText } from "gsap/SplitText";
 
-    gsap.registerPlugin(ScrollToPlugin, SplitText);
+    let mouseMoveHandler = null;
 
     function initHero() {
-        const title = document.querySelector(".hero-title");
-        if (!title) return;
-        gsap.set(title, { visibility: "visible" });
+        gsap.killTweensOf("*");
+        if (mouseMoveHandler) {
+            window.removeEventListener("mousemove", mouseMoveHandler);
+        }
 
-        // 1. Animación de entrada inicial (Letra por letra)
-        const split = new SplitText(".hero-title span:first-child", { type: "chars" });
-        const tl = gsap.timeline();
-
-        tl.from(split.chars, {
-            duration: 1,
-            y: 80,
-            opacity: 0,
-            stagger: 0.04,
-            ease: "expo.out"
-        })
-        .from(".hero-content", {
-            duration: 1,
-            y: 30,
-            opacity: 0,
-            ease: "power3.out"
-        }, "-=0.6");
-
-        // 2. Lógica de Intercambio de Palabras (Fade In/Out)
+        const titleLine = document.querySelector(".hero-main-title");
+        const content = document.querySelector(".hero-content");
         const words = document.querySelectorAll(".word-item");
-        let currentIndex = 0;
+        const mouseLight = document.getElementById("mouse-follower-light");
 
-        function rotateWords() {
+        if (!titleLine || !content || !mouseLight) return;
+
+        gsap.set(titleLine, { y: "100%" });
+        gsap.set(content, { opacity: 0, y: 20 });
+        gsap.set(mouseLight, { opacity: 0 });
+
+        const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+
+        tl.to(titleLine, {
+            y: 0,
+            duration: 1.5,
+            delay: 0.2
+        })
+        .to(content, {
+            opacity: 1,
+            y: 0,
+            duration: 1
+        }, "-=0.8")
+        .to(mouseLight, { 
+            opacity: 1, 
+            duration: 1.5 
+        }, "-=0.5");
+
+        mouseMoveHandler = (e) => {
+            gsap.to(mouseLight, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.8,
+                ease: "power2.out"
+            });
+        };
+        window.addEventListener("mousemove", mouseMoveHandler);
+
+        let currentIndex = 0;
+        let wordRotationActive = true;
+
+        const rotateWords = () => {
+            if (!wordRotationActive || !words.length) return;
+
             const currentWord = words[currentIndex];
             const nextIndex = (currentIndex + 1) % words.length;
             const nextWord = words[nextIndex];
 
-            const wordTl = gsap.timeline();
-
-            // La palabra actual se desvanece y sube un poco
-            wordTl.to(currentWord, {
-                duration: 0.5,
-                opacity: 0,
-                y: -20,
-                ease: "power2.in"
-            })
-            // La nueva palabra aparece desde abajo
-            .fromTo(nextWord, 
-                { opacity: 0, y: 20 },
-                { duration: 0.6, opacity: 1, y: 0, ease: "power2.out" }
-            );
+            gsap.timeline()
+                .to(currentWord, { y: -50, opacity: 0, rotateX: 90, duration: 0.6, ease: "power4.in" })
+                .fromTo(nextWord, 
+                    { y: 50, opacity: 0, rotateX: -90 },
+                    { y: 0, opacity: 1, rotateX: 0, duration: 0.7, ease: "power4.out" },
+                    "-=0.2"
+                );
 
             currentIndex = nextIndex;
-            gsap.delayedCall(3, rotateWords); // 3 segundos de pausa para lectura clara
-        }
+            gsap.delayedCall(2.5, rotateWords);
+        };
 
-        // Inicializar ciclo
         if(words.length > 0) {
+            gsap.set(words, { opacity: 0, y: 50 });
             gsap.set(words[0], { opacity: 1, y: 0 });
             gsap.delayedCall(3, rotateWords);
         }
 
-        // 3. Scroll suave al botón de proyectos
-        document.getElementById("go-projects-button")?.addEventListener("click", () => {
-            gsap.to(window, { duration: 1.5, scrollTo: "#work-preview", ease: "power4.inOut" });
-        });
+        document.addEventListener("astro:before-preparation", () => {
+            wordRotationActive = false;
+            if (mouseMoveHandler) window.removeEventListener("mousemove", mouseMoveHandler);
+            gsap.killTweensOf("*");
+        }, { once: true });
     }
 
     document.addEventListener("astro:page-load", initHero);
-    if (document.readyState !== "loading") initHero();
+    
+    if (document.readyState !== "loading") {
+        initHero();
+    }
 </script>

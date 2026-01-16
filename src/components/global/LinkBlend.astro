@@ -1,49 +1,65 @@
 ---
+// Definimos las props para que TypeScript no se queje
+interface Props {
+    class?: string;
+    isButton?: boolean;
+    href?: string;
+    type?: "button" | "submit" | "reset";
+    [x: string]: any; // Para capturar el resto de atributos como target, id, etc.
+}
+
 const { class: className, isButton, ...rest } = Astro.props;
 ---
 
 {
-	isButton ? (
-		<button class:list={[className]} {...rest}>
-			<slot />
-		</button>
-	) : (
-		<a class:list={[className]} {...rest}>
-			<slot />
-		</a>
-	)
+    isButton ? (
+        <button class:list={["custom-element", className]} {...rest}>
+            <slot />
+        </button>
+    ) : (
+        <a class:list={["custom-element", className]} {...rest}>
+            <slot />
+        </a>
+    )
 }
 
 <style>
-	a,
-	button {
-		cursor: pointer;
-		display: inline-block;
-		color: black;
-		text-decoration: none;
-		position: relative;
-		transition: all 0.2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-		z-index: 1;
-	}
-	a::after,
-	button::after {
-		content: "";
-		background: #292524;
-		/* mix-blend-mode: exclusion; */
-		width: calc(100% + 9px);
-		height: 1px;
-		position: absolute;
-		bottom: -2px;
-		left: -4px;
-		transition: all 0.2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-	}
-	a:hover,
-	button:hover {
-		color: white;
-	}
-	a:hover::after,
-	button:hover::after {
-		height: calc(100% + 4px);
-		z-index: -1;
-	}
+    .custom-element {
+        cursor: pointer;
+        display: inline-flex; /* Cambiado a inline-flex para mejor alineación de slots */
+        align-items: center;
+        color: inherit; /* Que herede el color del padre para ser más versátil */
+        text-decoration: none;
+        position: relative;
+        transition: all 0.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+        z-index: 1;
+        background: transparent;
+        border: none;
+        padding: 4px 8px; /* Un poco de respiro para el efecto de fondo */
+    }
+
+    /* La línea del subrayado */
+    .custom-element::after {
+        content: "";
+        background: #a3e635; /* Usando tu verde lima de la config */
+        width: calc(100% + 4px);
+        height: 1px;
+        position: absolute;
+        bottom: 0;
+        left: -2px;
+        transition: all 0.25s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+        z-index: -1;
+    }
+
+    /* Estado Hover: La línea crece y se vuelve el fondo */
+    .custom-element:hover {
+        color: #131313; /* Tu color 'black' de la config para contraste sobre el verde */
+    }
+
+    .custom-element:hover::after {
+        height: 100%;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+    }
 </style>

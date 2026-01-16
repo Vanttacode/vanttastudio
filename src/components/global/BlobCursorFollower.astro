@@ -1,4 +1,5 @@
 ---
+/* CursorBlob.astro - Efecto de luz ambiental que sigue al ratón */
 ---
 
 <div id="cursor-follower" class="pointer-events-none fixed inset-0 z-0">
@@ -9,6 +10,7 @@
     import { gsap } from "gsap";
 
     function init() {
+        // Detectar si es táctil para no ejecutar innecesariamente
         const isTouchDevice = window.matchMedia("(hover: none)").matches;
         if (isTouchDevice) return;
 
@@ -23,16 +25,18 @@
         let currentX = 0;
         let currentY = 0;
 
-        // Suavizado (0.1 = muy lento, 1 = instantáneo)
+        // Factor de suavizado (0.08 es una estela elegante)
         const lerpFactor = 0.08; 
 
-        // Actualizar coordenadas del ratón
-        window.addEventListener("mousemove", (e) => {
+        const handleMouseMove = (e: MouseEvent) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-        });
+        };
 
-        // Loop de animación optimizado
+        window.addEventListener("mousemove", handleMouseMove);
+
+        // Loop de animación con rAF
+        let animationFrameId: number;
         function update() {
             currentX += (mouseX - currentX) * lerpFactor;
             currentY += (mouseY - currentY) * lerpFactor;
@@ -44,65 +48,76 @@
                 yPercent: -50
             });
 
-            requestAnimationFrame(update);
+            animationFrameId = requestAnimationFrame(update);
         }
 
-        requestAnimationFrame(update);
+        update();
 
-        // Interacciones con elementos (Magnetismo y Cambio de tamaño)
-        const interactiveElements = document.querySelectorAll("[data-cursor-hover]");
+        // Manejo de elementos interactivos
+        const refreshInteractions = () => {
+            const interactiveElements = document.querySelectorAll("[data-cursor-hover]");
 
-        interactiveElements.forEach((el) => {
-            el.addEventListener("mouseenter", () => {
-                gsap.to(blob, {
-                    scale: 1.5,
-                    opacity: 0.4,
-                    duration: 0.6,
-                    ease: "power2.out"
-                });
-            });
-
-            el.addEventListener("mouseleave", () => {
-                gsap.to(blob, {
-                    scale: 0.8,
-                    opacity: 0.2,
-                    duration: 0.6,
-                    ease: "power2.out"
-                });
-
-                if (el.hasAttribute("data-cursor-parallax")) {
-                    gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: "power2.out" });
-                }
-            });
-
-            el.addEventListener("mousemove", (e) => {
-                if (el.hasAttribute("data-cursor-parallax")) {
-                    const rect = el.getBoundingClientRect();
-                    const x = (e.clientX - (rect.left + rect.width / 2)) * 0.2;
-                    const y = (e.clientY - (rect.top + rect.height / 2)) * 0.2;
-                    
-                    gsap.to(el, {
-                        x: x,
-                        y: y,
-                        duration: 0.3,
+            interactiveElements.forEach((el) => {
+                // Efecto de expansión del blob
+                el.addEventListener("mouseenter", () => {
+                    gsap.to(blob, {
+                        scale: 1.8,
+                        opacity: 0.35,
+                        duration: 0.8,
                         ease: "power2.out"
                     });
-                }
-            });
-        });
+                });
 
+                el.addEventListener("mouseleave", () => {
+                    gsap.to(blob, {
+                        scale: 1,
+                        opacity: 0.2,
+                        duration: 0.8,
+                        ease: "power2.out"
+                    });
+
+                    if (el.hasAttribute("data-cursor-parallax")) {
+                        gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: "power3.out" });
+                    }
+                });
+
+                // Efecto Parallax / Magnético
+                el.addEventListener("mousemove", (e) => {
+                    if (el instanceof HTMLElement && el.hasAttribute("data-cursor-parallax")) {
+                        const rect = el.getBoundingClientRect();
+                        const x = ((e as MouseEvent).clientX - (rect.left + rect.width / 2)) * 0.25;
+                        const y = ((e as MouseEvent).clientY - (rect.top + rect.height / 2)) * 0.25;
+                        
+                        gsap.to(el, {
+                            x: x,
+                            y: y,
+                            duration: 0.4,
+                            ease: "power2.out"
+                        });
+                    }
+                });
+            });
+        };
+
+        refreshInteractions();
         follower.classList.add("active");
+
+        // Cleanup para Astro View Transitions
+        document.addEventListener("astro:before-swap", () => {
+            window.removeEventListener("mousemove", handleMouseMove);
+            cancelAnimationFrame(animationFrameId);
+        }, { once: true });
     }
 
-    // Soporte para transiciones de página de Astro
-    document.addEventListener("DOMContentLoaded", init);
+    // Inicialización robusta
     document.addEventListener("astro:page-load", init);
 </script>
 
 <style>
     #cursor-follower {
         opacity: 0;
-        transition: opacity 1s ease-in-out;
+        transition: opacity 1.5s ease-in-out;
+        z-index: 1; /* Por encima del fondo, por debajo del contenido */
     }
 
     #cursor-follower.active {
@@ -113,15 +128,16 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 400px;
-        height: 400px;
-        background-color: #a3e635; /* Verde Lima Vantta */
+        width: 35vw; /* Tamaño dinámico basado en pantalla */
+        height: 35vw;
+        max-width: 500px;
+        max-height: 500px;
+        background-color: #a3e635; /* Lima Vantta */
         border-radius: 50%;
-        filter: blur(80px);
+        filter: blur(120px); /* Blur aumentado para efecto más difuso */
         opacity: 20%;
         pointer-events: none;
         will-change: transform;
-        z-index: -1;
-        transform: scale(0.8);
+        mix-blend-mode: screen; /* Mezcla mejor en fondos oscuros */
     }
 </style>
