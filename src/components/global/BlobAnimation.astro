@@ -76,28 +76,10 @@ const {
         }
     }
 
-    /* Móvil: Estático y simplificado */
-    @media (max-width: 767px) {
-        .blob {
-            animation: none !important;
-            filter: blur(60px);
-        }
-        .blob-color-a {
-            background-color: var(--blobAColor);
-            top: -5%;
-            left: -5%;
-            width: 80vw;
-            height: 80vw;
-        }
-        .blob-color-b {
-            background-color: var(--blobBColor);
-            bottom: -5%;
-            right: -5%;
-            width: 80vw;
-            height: 80vw;
-        }
-        .blob-color-c {
-            display: none;
+    /* Móvil: Ocultar completamente para performance */
+    @media (max-width: 768px) {
+        .blob-cont {
+            display: none !important;
         }
     }
 
