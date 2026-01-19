@@ -30,42 +30,75 @@ const {
         overflow: hidden;
         pointer-events: none;
         background-color: transparent;
+        /* Force hardware acceleration */
+        transform: translate3d(0, 0, 0);
     }
 
     .blob {
         position: absolute;
         border-radius: 50%;
-        filter: blur(120px);
-        opacity: 0.25; /* Un poco más sutil para dejar leer el texto */
+        filter: blur(80px); /* Reduced blur */
+        opacity: 0.25;
         will-change: transform;
         pointer-events: none;
     }
 
-    .blob-color-a {
-        background-color: var(--blobAColor);
-        width: 45vw;
-        height: 45vw;
-        top: -10%;
-        left: -10%;
-        animation: movement-a 25s infinite ease-in-out;
+    /* Animaciones solo en desktop */
+    @media (min-width: 768px) {
+        .blob {
+            filter: blur(120px);
+        }
+        .blob-color-a {
+            background-color: var(--blobAColor);
+            width: 45vw;
+            height: 45vw;
+            top: -10%;
+            left: -10%;
+            animation: movement-a 25s infinite ease-in-out;
+        }
+
+        .blob-color-b {
+            background-color: var(--blobBColor);
+            width: 55vw;
+            height: 55vw;
+            bottom: -15%;
+            right: -10%;
+            animation: movement-b 30s infinite ease-in-out;
+        }
+
+        .blob-color-c {
+            background-color: var(--blobCColor);
+            width: 35vw;
+            height: 35vw;
+            top: 30%;
+            left: 20%;
+            animation: movement-c 20s infinite ease-in-out;
+        }
     }
 
-    .blob-color-b {
-        background-color: var(--blobBColor);
-        width: 55vw;
-        height: 55vw;
-        bottom: -15%;
-        right: -10%;
-        animation: movement-b 30s infinite ease-in-out;
-    }
-
-    .blob-color-c {
-        background-color: var(--blobCColor);
-        width: 35vw;
-        height: 35vw;
-        top: 30%;
-        left: 20%;
-        animation: movement-c 20s infinite ease-in-out;
+    /* Móvil: Estático y simplificado */
+    @media (max-width: 767px) {
+        .blob {
+            animation: none !important;
+            filter: blur(60px);
+        }
+        .blob-color-a {
+            background-color: var(--blobAColor);
+            top: -5%;
+            left: -5%;
+            width: 80vw;
+            height: 80vw;
+        }
+        .blob-color-b {
+            background-color: var(--blobBColor);
+            bottom: -5%;
+            right: -5%;
+            width: 80vw;
+            height: 80vw;
+        }
+        .blob-color-c {
+            display: none;
+        }
     }
 
     /* Animaciones optimizadas usando solo transform */
