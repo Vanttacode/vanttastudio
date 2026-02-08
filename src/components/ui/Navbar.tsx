@@ -65,7 +65,7 @@ export const Navbar = () => {
         {/* RIGHT ACTIONS */}
         <div className="hidden md:flex items-center gap-4">
           <motion.a
-            href="/web/cotizador"
+            href="/cotizador"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="px-6 py-2 rounded-full text-sm font-bold shadow-lg flex items-center gap-2 transition-all bg-purple-600 text-white hover:bg-purple-700 shadow-purple-900/20"

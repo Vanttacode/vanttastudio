@@ -1,35 +1,38 @@
 ﻿---
-// src/layouts/BaseLayout.astro
 import "../styles/global.css";
-import ThemeInit from "../components/ui/ThemeInit.astro";
-
-// IMPORTANTE: Cambiamos la importación.
-// En lugar de "Navbar.astro" (el viejo), traemos "barnav.astro" (el wrapper de React).
+// Importamos la barra de navegación (asegúrate que esta ruta sea la correcta a tu componente)
 import Barnav from "../components/ui/Navbar.astro";
 
-type Props = {
+interface Props {
   title?: string;
-  lang?: string;
-};
+  description?: string;
+}
 
-const { title = "VanttaCode", lang = "es" } = Astro.props as Props;
+const { 
+  title = "Vantta Studio | Ecosistema Digital", 
+  description = "Desarrollo de Software, Web e Inteligencia Artificial. Sistemas operativos autónomos y soluciones digitales en Magallanes."
+} = Astro.props;
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang="es" class="dark">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>{title}</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <ThemeInit />
-  </head>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
 
-  <body>
+    <link rel="icon" type="image/png" href="/ico.png" />
+
+    </head>
+
+  <body class="bg-black text-white antialiased selection:bg-purple-900 selection:text-white overflow-x-hidden">
+    
     <Barnav />
     
-    <main>
-      <slot />
-    </main>
+    <slot />
+
   </body>
 </html>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Wrench, Boxes, ArrowRight } from "lucide-react";
 
 const solutions = [
@@ -12,7 +12,7 @@ const solutions = [
     bgImage: "/workover-bg.webp",
     gradient: "from-black via-purple-950/40 to-transparent",
     accent: "text-purple-400",
-    borderHover: "group-hover:border-purple-500/50",
+    border: "border-purple-500/30",
     btnColor: "bg-purple-600 hover:bg-purple-500",
     link: "/workover"
   },
@@ -25,7 +25,7 @@ const solutions = [
     bgImage: "/modular-bg.webp",
     gradient: "from-black via-cyan-950/40 to-transparent",
     accent: "text-cyan-400",
-    borderHover: "group-hover:border-cyan-500/50",
+    border: "border-cyan-500/30",
     btnColor: "bg-cyan-600 hover:bg-cyan-500",
     link: "/cotizador"
   }
@@ -35,20 +35,31 @@ export const SolutionsSplit = () => {
   const [hovered, setHovered] = useState<string | null>(null);
 
   return (
-    <section className="relative w-full min-h-screen md:h-[800px] flex flex-col md:flex-row bg-black overflow-hidden">
+    <section className="relative w-full flex flex-col md:flex-row bg-black overflow-hidden">
       
-      {/* HEADER FLOTANTE */}
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 z-30 text-center w-full px-4 pointer-events-none">
+      {/* HEADER FLOTANTE (Solo visible en Desktop para no tapar en móvil) */}
+      <div className="hidden md:block absolute top-10 left-1/2 -translate-x-1/2 z-30 text-center w-full px-4 pointer-events-none">
         <span className="inline-block py-1 px-3 rounded-full bg-black/60 backdrop-blur-xl border border-white/10 text-white text-[10px] font-bold tracking-widest uppercase mb-4 shadow-2xl">
           SOLUCIONES VANTTA
         </span>
-        <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter drop-shadow-2xl">
+        <h2 className="text-5xl font-black text-white tracking-tighter drop-shadow-2xl">
           ELEGÍ TU <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">CAMINO</span>
+        </h2>
+      </div>
+
+      {/* HEADER MÓVIL (Estático arriba) */}
+      <div className="md:hidden w-full py-12 px-6 text-center border-b border-white/10 bg-[#050505] z-30">
+        <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 block">
+            SOLUCIONES VANTTA
+        </span>
+        <h2 className="text-4xl font-black text-white uppercase leading-none">
+            ELEGÍ TU <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">CAMINO</span>
         </h2>
       </div>
 
       {solutions.map((item) => {
         const isHovered = hovered === item.id;
+        // En móvil no hay "other hovered", siempre se ven bien
         const isOtherHovered = hovered !== null && hovered !== item.id;
 
         return (
@@ -56,87 +67,70 @@ export const SolutionsSplit = () => {
             key={item.id}
             onMouseEnter={() => setHovered(item.id)}
             onMouseLeave={() => setHovered(null)}
-            className="relative flex-1 flex items-center justify-center overflow-hidden transition-all duration-500 ease-in-out border-b md:border-b-0 md:border-r border-white/10 last:border-0"
+            className="group relative flex-1 min-h-[500px] md:h-[800px] flex items-center justify-center overflow-hidden transition-all duration-500 ease-in-out border-b md:border-b-0 md:border-r border-white/10 last:border-0"
           >
             
-            {/* IMAGEN DE FONDO CON TRANSICIÓN DE ESTADO */}
-            <motion.div 
-              className="absolute inset-0 z-0"
-              initial={false}
-              animate={{
-                scale: isHovered ? 1.05 : 1,
-                filter: isOtherHovered 
-                  ? "grayscale(100%) brightness(0.1)" 
-                  : isHovered 
-                    ? "grayscale(0%) brightness(0.7)" 
-                    : "grayscale(100%) brightness(0.3)",
-              }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <img 
-                src={item.bgImage} 
-                alt={item.title} 
-                className="w-full h-full object-cover" 
-              />
-            </motion.div>
+            {/* IMAGEN DE FONDO */}
+            <div className="absolute inset-0 z-0">
+               {/* Versión Desktop (Reactiva al Hover) */}
+               <motion.img 
+                  src={item.bgImage} 
+                  alt={item.title} 
+                  className="hidden md:block w-full h-full object-cover"
+                  animate={{
+                    scale: isHovered ? 1.1 : 1,
+                    filter: isOtherHovered ? "grayscale(100%) brightness(0.2)" : "grayscale(0%) brightness(0.5)"
+                  }}
+                  transition={{ duration: 0.7 }}
+               />
+               
+               {/* Versión Móvil (Estática y visible) */}
+               <img 
+                  src={item.bgImage} 
+                  alt={item.title} 
+                  className="md:hidden w-full h-full object-cover opacity-40 grayscale-[30%]"
+               />
+            </div>
 
-            {/* OVERLAYS DE COLOR */}
-            <motion.div 
-              className={`absolute inset-0 bg-gradient-to-t ${item.gradient} z-10`}
-              animate={{ opacity: isHovered ? 0.8 : 0.4 }}
-            />
-            <div className="absolute inset-0 bg-black/40 z-10" />
-
-            {/* CONTENIDO (LAYOUT ESTÁTICO) */}
-            <div className="relative z-20 w-full max-w-lg px-8 flex flex-col items-center text-center py-20 md:py-0">
+            {/* OVERLAYS */}
+            <div className={`absolute inset-0 bg-gradient-to-t ${item.gradient} z-10 opacity-60 md:opacity-40`} />
+            
+            {/* CONTENIDO */}
+            <div className="relative z-20 w-full max-w-lg px-6 flex flex-col items-center text-center">
               
-              <motion.div 
-                className={`p-5 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 mb-6 ${item.accent} shadow-2xl`}
-                animate={{ 
-                  y: isHovered ? -10 : 0,
-                  borderColor: isHovered ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.1)",
-                  backgroundColor: isHovered ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.05)"
-                }}
-              >
-                <item.icon size={48} strokeWidth={1.5} />
-              </motion.div>
+              {/* ICONO */}
+              <div className={`p-4 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 mb-6 ${item.accent} shadow-2xl md:group-hover:-translate-y-2 transition-transform duration-500`}>
+                <item.icon size={40} strokeWidth={1.5} />
+              </div>
 
-              <h3 className="text-5xl md:text-6xl font-black text-white uppercase mb-2 leading-none tracking-tighter">
+              <h3 className="text-4xl md:text-6xl font-black text-white uppercase mb-2 leading-none tracking-tighter">
                 {item.title}
               </h3>
               
-              <div className={`text-sm font-bold tracking-[0.4em] uppercase mb-8 ${item.accent}`}>
+              <div className={`text-xs md:text-sm font-bold tracking-[0.3em] uppercase mb-6 ${item.accent}`}>
                 {item.subtitle}
               </div>
 
-              {/* La descripción ahora reacciona suavemente */}
-              <motion.p 
-                className="text-gray-300 text-lg leading-relaxed mb-10 max-w-sm font-medium"
-                animate={{ 
-                  opacity: isOtherHovered ? 0.2 : isHovered ? 1 : 0.5,
-                  y: isHovered ? 0 : 5
-                }}
-              >
+              {/* DESCRIPCIÓN */}
+              {/* En móvil: Visible siempre. En Desktop: Se mueve/atenúa según hover */}
+              <p className={`text-gray-300 text-sm md:text-lg leading-relaxed mb-8 max-w-sm font-medium transition-all duration-500
+                 md:opacity-50 md:group-hover:opacity-100 md:translate-y-4 md:group-hover:translate-y-0`}>
                 {item.desc}
-              </motion.p>
+              </p>
 
-              <motion.a
+              {/* BOTÓN */}
+              {/* En móvil: Visible siempre. En Desktop: Aparece con el hover */}
+              <a
                 href={item.link}
-                className={`inline-flex items-center gap-3 px-10 py-4 rounded-full text-white font-extrabold uppercase tracking-widest text-xs shadow-2xl transition-colors ${item.btnColor}`}
-                animate={{ 
-                  opacity: isHovered ? 1 : 0,
-                  y: isHovered ? 0 : 20,
-                  pointerEvents: isHovered ? "auto" : "none"
-                }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className={`inline-flex items-center gap-2 px-8 py-3 rounded-full text-white font-bold uppercase tracking-widest text-[10px] md:text-xs shadow-xl transition-all ${item.btnColor}
+                  md:opacity-0 md:translate-y-4 md:group-hover:opacity-100 md:group-hover:translate-y-0`}
               >
-                Explorar Solución <ArrowRight size={18} />
-              </motion.a>
+                Ver Detalle <ArrowRight size={16} />
+              </a>
 
             </div>
 
-            {/* Grid Pattern sutil */}
+            {/* Grid Pattern */}
             <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-10 pointer-events-none mix-blend-overlay z-20"></div>
 
           </div>
