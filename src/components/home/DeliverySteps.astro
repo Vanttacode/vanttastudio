@@ -1,0 +1,159 @@
+---
+const steps = [
+  {
+    n: "01",
+    title: "Diagnóstico",
+    desc: "Auditoría real. Identificamos cuellos de botella y definimos qué arreglar primero. Sin humo.",
+    icon: "🔍" 
+  },
+  {
+    n: "02",
+    title: "Plan de Acción",
+    desc: "Alcance cerrado y fechas reales. Definimos el 'Definition of Done'. Nada de 'vamos viendo'.",
+    icon: "📝"
+  },
+  {
+    n: "03",
+    title: "Ejecución",
+    desc: "Construcción limpia. Estructura sólida, cero deuda técnica y optimización desde el código.",
+    icon: "⚙️"
+  },
+  {
+    n: "04",
+    title: "Entrega & Scale",
+    desc: "Lanzamiento sin estrés. Te dejamos una base lista para crecer, documentada y propia.",
+    icon: "🚀"
+  },
+];
+---
+
+<section class="v-process-sect py-24 relative overflow-hidden transition-colors duration-300">
+  
+  <style is:inline>
+    /* --- DARK MODE (Default) --- */
+    .v-process-sect {
+      --bg-sect: #000000;
+      --text-main: #ffffff;
+      --text-muted: #9ca3af;
+      --line-color: rgba(255,255,255,0.1);
+      --circle-bg: #000000;
+      --circle-border: rgba(255,255,255,0.15);
+      --icon-bg: rgba(255,255,255,0.05);
+      --accent: #a855f7; /* Purple Neon */
+      --accent-glow: rgba(168, 85, 247, 0.4);
+      --number-bg: #ffffff;
+      --number-text: #000000;
+    }
+
+    /* --- LIGHT MODE OVERRIDES --- */
+    :root[data-theme="light"] .v-process-sect {
+      --bg-sect: #F3F4F6; /* Gray 100 */
+      --text-main: #111827; /* Gray 900 */
+      --text-muted: #4b5563; /* Gray 600 */
+      --line-color: #d1d5db; /* Gray 300 */
+      --circle-bg: #ffffff;
+      --circle-border: #d1d5db;
+      --icon-bg: #f3f4f6;
+      --accent: #7e22ce; /* Purple Darker */
+      --accent-glow: rgba(126, 34, 206, 0.2);
+      --number-bg: #111827;
+      --number-text: #ffffff;
+    }
+
+    /* APLICACIÓN DE VARIABLES */
+    .v-process-sect { background-color: var(--bg-sect); color: var(--text-main); }
+    .v-proc-line { background-color: var(--line-color); }
+    .v-proc-title { color: var(--text-main); }
+    .v-proc-desc { color: var(--text-muted); }
+    
+    .v-proc-circle { 
+      background-color: var(--circle-bg); 
+      border: 1px solid var(--circle-border); 
+      box-shadow: 0 0 0 transparent;
+      transition: all 0.3s ease;
+    }
+    
+    .v-proc-icon-box {
+      background-color: var(--icon-bg);
+      color: var(--text-main);
+      transition: all 0.3s ease;
+    }
+
+    /* HOVER EFFECTS */
+    .v-proc-step:hover .v-proc-circle {
+      border-color: var(--accent);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+    .v-proc-step:hover .v-proc-icon-box {
+      background-color: var(--accent);
+      color: #ffffff;
+    }
+    .v-proc-step:hover .v-proc-title {
+      color: var(--accent);
+    }
+
+    .v-proc-num {
+      background-color: var(--number-bg);
+      color: var(--number-text);
+      border: 2px solid var(--bg-sect); /* Para hacer un recorte visual */
+    }
+
+  </style>
+
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+    
+    <div class="text-center mb-20">
+      <span class="inline-block py-1 px-3 rounded-full border text-[10px] font-bold tracking-widest uppercase mb-4 transition-colors"
+            style="background-color: var(--icon-bg); border-color: var(--circle-border); color: var(--text-muted);">
+        CÓMO SE ENTREGA
+      </span>
+      <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mb-4 v-proc-title">
+        DEL CAOS AL <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-purple-400">ORDEN</span>
+      </h2>
+      <p class="max-w-2xl mx-auto text-lg v-proc-desc">
+        Sin vueltas. Un proceso lineal diseñado para eliminar la incertidumbre y garantizar resultados predecibles.
+      </p>
+    </div>
+
+    <div class="relative">
+      
+      <div class="absolute left-8 top-0 bottom-0 w-px v-proc-line md:hidden"></div>
+      <div class="hidden md:block absolute left-0 right-0 top-12 h-px w-full v-proc-line"></div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-4 relative">
+        
+        {steps.map((step) => (
+          <div class="group relative pl-24 md:pl-0 md:pt-28 md:text-center v-proc-step cursor-default">
+            
+            <div class="absolute left-0 top-0 md:left-1/2 md:-translate-x-1/2 md:top-0 w-16 h-16 md:w-24 md:h-24 flex items-center justify-center rounded-full z-10 v-proc-circle">
+              
+              <div class="w-10 h-10 md:w-14 md:h-14 rounded-full flex items-center justify-center text-xl md:text-2xl v-proc-icon-box">
+                {step.icon}
+              </div>
+              
+              <div class="absolute -top-2 -right-2 md:top-0 md:right-0 w-6 h-6 rounded-full text-[10px] font-bold flex items-center justify-center v-proc-num shadow-sm">
+                {step.n}
+              </div>
+            </div>
+
+            <div class="relative">
+              <h3 class="text-xl font-bold mb-2 uppercase tracking-tight transition-colors v-proc-title">
+                {step.title}
+              </h3>
+              <p class="text-sm leading-relaxed transition-colors v-proc-desc">
+                {step.desc}
+              </p>
+            </div>
+
+          </div>
+        ))}
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(128,128,128,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(128,128,128,0.05)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none"></div>
+
+</section>

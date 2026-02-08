@@ -1,0 +1,103 @@
+---
+import { Cpu, ShieldAlert, BarChart, Users, FileText, Server } from "lucide-react";
+
+const agents = [
+  {
+    name: "HAL",
+    role: "People Ops System",
+    desc: "Protector del equipo. Mide fatiga, ausentismo y desempeño sin drama.",
+    color: "bg-red-600",
+    shadow: "shadow-red-900/40",
+    icon: Users
+  },
+  {
+    name: "ELBERT",
+    role: "Inventory Ops System",
+    desc: "Obsesivo del orden. Predice quiebres de stock y audita mermas.",
+    color: "bg-yellow-500",
+    shadow: "shadow-yellow-900/40",
+    icon: BarChart
+  },
+  {
+    name: "CASSIE",
+    role: "Executive Admin",
+    desc: "Resolutiva. Gestiona agenda, correos y coordinación sin fricción.",
+    color: "bg-blue-500",
+    shadow: "shadow-blue-900/40",
+    icon: FileText
+  },
+  {
+    name: "ARQUÍMEDES",
+    role: "Finance Ops",
+    desc: "Preciso. Concilia pagos, detecta fugas de caja y proyecta flujo.",
+    color: "bg-emerald-500",
+    shadow: "shadow-emerald-900/40",
+    icon: BarChart
+  },
+  {
+    name: "CICERÓN",
+    role: "Legal Ops",
+    desc: "Cauto. Revisa contratos, riesgos y cumplimiento normativo.",
+    color: "bg-purple-500",
+    shadow: "shadow-purple-900/40",
+    icon: ShieldAlert
+  },
+  {
+    name: "ARTUR",
+    role: "IT Ops System",
+    desc: "Paranoico. Mantiene servidores, seguridad y redes 24/7.",
+    color: "bg-cyan-500",
+    shadow: "shadow-cyan-900/40",
+    icon: Server
+  }
+];
+---
+
+<section class="py-32 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-20">
+       <h2 class="text-4xl md:text-6xl font-black text-white uppercase mb-4">La Tripulación</h2>
+       <p class="text-gray-400 max-w-2xl text-lg">
+         Cada sistema tiene una personalidad y un dominio experto. Trabajan juntos compartiendo contexto.
+       </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {agents.map((agent) => (
+        <div class="group relative bg-[#080808] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-all overflow-hidden">
+          
+          <div class={`absolute -top-20 -right-20 w-40 h-40 rounded-full blur-[80px] opacity-10 group-hover:opacity-20 transition-opacity ${agent.color}`}></div>
+
+          <div class="flex items-center gap-4 mb-8">
+            <div class="relative w-16 h-16 bg-black rounded-full border-2 border-white/10 flex items-center justify-center shadow-lg">
+               <div class={`w-4 h-4 rounded-full ${agent.color} ${agent.shadow} shadow-[0_0_15px] animate-pulse`}></div>
+            </div>
+            
+            <div>
+               <h3 class="text-2xl font-black text-white uppercase tracking-wide">{agent.name}</h3>
+               <span class={`text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded bg-white/5 ${agent.color.replace('bg-', 'text-')}`}>
+                 {agent.role}
+               </span>
+            </div>
+          </div>
+
+          <p class="text-gray-400 text-sm leading-relaxed mb-8 min-h-[60px]">
+            {agent.desc}
+          </p>
+
+          <div class="space-y-2 border-t border-white/5 pt-6">
+             <div class="flex items-center gap-3 text-xs text-gray-500 font-mono">
+                <div class={`w-1.5 h-1.5 rounded-full ${agent.color}`}></div>
+                <span>Estado: ONLINE</span>
+             </div>
+             <div class="flex items-center gap-3 text-xs text-gray-500 font-mono">
+                <agent.icon size={12} />
+                <span>Permisos: ADMIN_L1</span>
+             </div>
+          </div>
+
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

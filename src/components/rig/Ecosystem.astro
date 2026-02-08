@@ -1,0 +1,33 @@
+---
+import { Server, Share2, ShieldCheck } from "lucide-react";
+---
+<section class="py-20 px-6 bg-black border-b border-white/10">
+  <div class="max-w-4xl mx-auto text-center">
+    
+    <span class="text-xs font-bold text-red-500 uppercase tracking-widest mb-4 block">Arquitectura</span>
+    <h2 class="text-4xl md:text-5xl font-black text-white uppercase mb-8">Ecosistema VanttaRig</h2>
+    
+    <p class="text-xl text-gray-300 mb-12 leading-relaxed">
+      VanttaRig no funciona como “herramientas sueltas”: los sistemas trabajan en equipo, se comparten contexto y se coordinan para ejecutar la operación con velocidad, consistencia y trazabilidad.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+       <div class="p-6 rounded-xl bg-[#080808] border border-white/10">
+          <Server class="text-gray-400 mb-4" size={24} />
+          <h4 class="font-bold text-white mb-2">Infraestructura Local</h4>
+          <p class="text-xs text-gray-500">Pensado para funcionar en un servidor local dentro de tu organización o en hardware administrado por VanttaCode.</p>
+       </div>
+       <div class="p-6 rounded-xl bg-[#080808] border border-white/10">
+          <Share2 class="text-gray-400 mb-4" size={24} />
+          <h4 class="font-bold text-white mb-2">Contexto Compartido</h4>
+          <p class="text-xs text-gray-500">Evita el "teléfono descompuesto". Lo que sabe Inventario, lo sabe Finanzas al instante.</p>
+       </div>
+       <div class="p-6 rounded-xl bg-[#080808] border border-white/10">
+          <ShieldCheck class="text-gray-400 mb-4" size={24} />
+          <h4 class="font-bold text-white mb-2">Principios</h4>
+          <p class="text-xs text-gray-500">Operan con permisos. Todo se audita. Proponen y preparan; la empresa decide.</p>
+       </div>
+    </div>
+
+  </div>
+</section>

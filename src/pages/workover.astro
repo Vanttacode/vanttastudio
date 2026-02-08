@@ -1,0 +1,39 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/global/Footer.astro";
+
+// Importamos los componentes modulares
+import Hero from "../components/workover/Hero.astro";
+import Problem from "../components/workover/Problem.astro";
+import TechStack from "../components/workover/TechStack.astro";
+import Timeline from "../components/workover/Timeline.astro";
+import FAQ from "../components/workover/FAQ.astro";
+
+// Componentes Interactivos (React)
+import { PricingInteractive } from "../components/workover/PricingInteractive.tsx";
+import { Comparison } from "../components/workover/Comparison"; 
+---
+
+<BaseLayout title="Web Workover | Reingeniería Digital - VanttaCode">
+  
+  <main class="bg-black min-h-screen text-white overflow-x-hidden">
+    
+    <Hero />
+    
+    <Problem />
+    
+    <Comparison client:visible />
+    
+    <TechStack />
+    
+    <Timeline />
+
+    <PricingInteractive client:visible />
+    
+    <FAQ />
+
+  </main>
+
+  <Footer />
+
+</BaseLayout>

@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/global/Footer.astro";
+
+import HeroRig from "../components/rig/HeroRig.astro";
+import OperatingModel from "../components/rig/OperatingModel.astro";
+import Ecosystem from "../components/rig/Ecosystem.astro";
+import Sponsors from "../components/rig/Sponsors.astro";
+import Disclaimer from "../components/rig/Disclaimer.astro";
+
+// EL COMPONENTE REACT "LA RAJA"
+import { SystemsCatalog } from "../components/rig/SystemsCatalog";
+---
+
+<BaseLayout title="VanttaRig | Sistemas Operativos Autónomos">
+  
+  <main class="bg-black min-h-screen text-white selection:bg-red-900 selection:text-white">
+    
+    <HeroRig />
+    
+    <OperatingModel />
+    
+    <Ecosystem />
+    
+    <SystemsCatalog client:visible />
+    
+    <Sponsors />
+
+    <Disclaimer />
+
+  </main>
+
+  <Footer />
+
+</BaseLayout>

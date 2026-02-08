@@ -1,0 +1,17 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/global/Footer.astro";
+import { SolutionsSplit } from "../components/web/SolutionsSplit";
+---
+
+<BaseLayout title="Desarrollo Web | Hub de Soluciones - VanttaCode">
+  
+  <main class="bg-black min-h-screen">
+    <div class="pt-20">
+       <SolutionsSplit client:only="react" />
+    </div>
+  </main>
+
+  <Footer />
+
+</BaseLayout>

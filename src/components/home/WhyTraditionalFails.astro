@@ -1,0 +1,176 @@
+﻿---
+// src/components/sections/home/WhyTraditionalFails.astro
+
+const rows = [
+  { 
+    lie: "“Instalale unos plugins y listo”", 
+    truth: "Pagás licencias eternas y tu web se vuelve una carreta inmantinible." 
+  },
+  { 
+    lie: "“Este theme hace de todo”", 
+    truth: "Carga 300 funciones que no usás. Resultado: lentitud y bugs." 
+  },
+  { 
+    lie: "“Después lo optimizamos para Google”", 
+    truth: "El SEO no es un parche. Si la base está mal, Google te ignora igual." 
+  },
+  { 
+    lie: "“Te armamos una web linda”", 
+    truth: "Lindo no vende. Necesitás estructura, copy y estrategia, no solo colores." 
+  },
+  { 
+    lie: "“Cualquiera lo puede administrar”", 
+    truth: "Terminás dependiendo del desarrollador para cambiar una coma." 
+  },
+];
+---
+
+<section class="v-why-sect py-24 relative overflow-hidden transition-colors duration-300">
+  
+  <style is:inline>
+    /* --- DARK MODE (DEFAULT) --- */
+    .v-why-sect { background-color: #050505; color: #ffffff; }
+    
+    /* Header */
+    .v-why-badge { background-color: rgba(147, 51, 234, 0.2); color: #c084fc; border: 1px solid rgba(147, 51, 234, 0.3); }
+    .v-why-title { color: #ffffff; }
+    .v-why-desc { color: #9ca3af; }
+    
+    /* Table Header */
+    .v-why-th { color: #6b7280; border-bottom: 1px solid rgba(255,255,255,0.1); }
+
+    /* Cards (Rows) */
+    .v-why-card { 
+      background-color: rgba(255,255,255,0.03); 
+      border: 1px solid rgba(255,255,255,0.05); 
+    }
+    .v-why-card:hover { 
+      background-color: #0A0A0A; 
+      border-color: rgba(168, 85, 247, 0.4); /* Purple Border Hover */
+    }
+
+    /* Textos internos */
+    .v-why-icon-lie { color: #4b5563; }
+    .v-why-text-lie { color: #9ca3af; font-style: italic; }
+    .v-why-card:hover .v-why-text-lie { color: #d1d5db; }
+    
+    .v-why-arrow { background-color: rgba(255,255,255,0.1); color: #6b7280; }
+    .v-why-card:hover .v-why-arrow { background-color: #a855f7; color: #ffffff; }
+
+    .v-why-check { color: #22c55e; opacity: 0; transition: opacity 0.3s; }
+    .v-why-card:hover .v-why-check { opacity: 1; }
+    
+    .v-why-text-truth { color: #ffffff; font-weight: 700; }
+
+    /* Footer */
+    .v-why-footer { border-top: 1px solid rgba(255,255,255,0.1); color: #6b7280; }
+
+
+    /* --- LIGHT MODE OVERRIDES --- */
+    :root[data-theme="light"] .v-why-sect { background-color: #ffffff; color: #111827; }
+    
+    /* Header Light */
+    :root[data-theme="light"] .v-why-badge { background-color: #F3E8FF; color: #7E22CE; border-color: #E9D5FF; }
+    :root[data-theme="light"] .v-why-title { color: #111827; }
+    :root[data-theme="light"] .v-why-desc { color: #4b5563; }
+    
+    /* Table Header Light */
+    :root[data-theme="light"] .v-why-th { color: #9ca3af; border-bottom: 1px solid #e5e7eb; }
+
+    /* Cards Light */
+    :root[data-theme="light"] .v-why-card { 
+      background-color: #F9FAFB; /* Gray 50 */
+      border: 1px solid #E5E7EB; 
+      box-shadow: none;
+    }
+    :root[data-theme="light"] .v-why-card:hover { 
+      background-color: #ffffff; 
+      border-color: #d8b4fe; 
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Textos internos Light */
+    :root[data-theme="light"] .v-why-icon-lie { color: #9ca3af; }
+    :root[data-theme="light"] .v-why-text-lie { color: #6b7280; }
+    :root[data-theme="light"] .v-why-card:hover .v-why-text-lie { color: #374151; }
+    
+    :root[data-theme="light"] .v-why-arrow { background-color: #e5e7eb; color: #9ca3af; }
+    :root[data-theme="light"] .v-why-card:hover .v-why-arrow { background-color: #9333ea; color: #ffffff; }
+
+    :root[data-theme="light"] .v-why-text-truth { color: #111827; }
+
+    /* Footer Light */
+    :root[data-theme="light"] .v-why-footer { border-top: 1px solid #e5e7eb; color: #6b7280; }
+
+  </style>
+  
+  <div class="max-w-4xl mx-auto px-6 relative z-10">
+    
+    <div class="text-center mb-16">
+      <span class="inline-block py-1 px-3 rounded-full text-xs font-bold tracking-widest uppercase mb-4 v-why-badge">
+        REALITY CHECK
+      </span>
+      <h2 class="text-4xl md:text-5xl font-black tracking-tight mb-6 v-why-title">
+        Por qué lo "tradicional" <br/>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">ya no funciona.</span>
+      </h2>
+      <p class="text-lg max-w-2xl mx-auto leading-relaxed v-why-desc">
+        Te venden soluciones rápidas que terminan siendo problemas a largo plazo. 
+        Desarmamos las mentiras más comunes de la industria.
+      </p>
+    </div>
+
+    <div class="space-y-4">
+      <div class="hidden md:grid grid-cols-[1fr_auto_1fr] gap-8 px-8 pb-4 text-xs font-bold tracking-widest uppercase v-why-th">
+        <div>Lo que te dicen (La Mentira)</div>
+        <div class="w-8"></div>
+        <div>Lo que pasa (La Realidad)</div>
+      </div>
+
+      {rows.map((row) => (
+        <div class="group relative grid md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-8 items-center p-6 md:p-8 rounded-2xl transition-all duration-300 v-why-card">
+          
+          <div class="relative">
+            <div class="flex items-start gap-4">
+              <div class="shrink-0 mt-1 transition-colors v-why-icon-lie group-hover:text-purple-500">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+              </div>
+              <p class="text-lg font-medium transition-colors v-why-text-lie">
+                {row.lie}
+              </p>
+            </div>
+          </div>
+
+          <div class="hidden md:flex justify-center items-center">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center transition-all v-why-arrow">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+            </div>
+          </div>
+          
+          <div class="md:hidden flex justify-center py-2 opacity-20">
+            <svg class="w-6 h-6 rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+          </div>
+
+          <div class="relative">
+             <div class="flex items-start gap-4">
+              <div class="shrink-0 mt-1 v-why-check">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              </div>
+              <p class="text-lg font-bold leading-tight v-why-text-truth">
+                {row.truth}
+              </p>
+            </div>
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-16 text-center pt-8 v-why-footer">
+      <p class="text-sm font-medium uppercase tracking-wide">
+        Spoiler: No necesitás más parches. Necesitás ingeniería real.
+      </p>
+    </div>
+
+  </div>
+</section>

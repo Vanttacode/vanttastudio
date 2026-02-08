@@ -1,0 +1,72 @@
+---
+// src/components/workover/TechStack.astro
+
+const logos = [
+  { name: "Astro", src: "/logosherramientas/astro.svg" },
+  { name: "React", src: "/logosherramientas/react.svg" },
+  { name: "Tailwind CSS", src: "/logosherramientas/tailwindcss.svg" },
+  { name: "Vercel", src: "/logosherramientas/vercel.svg" },
+  { name: "Supabase", src: "/logosherramientas/supabase.svg" },
+];
+---
+
+<section class="py-20 bg-black border-t border-white/5">
+  <div class="container mx-auto px-6 text-center mb-10">
+    <p class="text-sm font-bold text-gray-500 uppercase tracking-widest">
+      Con la confianza de tecnología moderna
+    </p>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-4">
+    
+    <div class="relative w-full overflow-hidden mask-gradient-center">
+      
+      <div class="flex items-center gap-12 md:gap-20 animate-marquee whitespace-nowrap py-2">
+        {[...logos, ...logos, ...logos, ...logos].map((logo) => (
+          <div class="flex items-center justify-center min-w-[100px] group shrink-0">
+            <img 
+              src={logo.src} 
+              alt={logo.name} 
+              class="h-8 md:h-9 w-auto object-contain opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300" 
+            />
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+    width: max-content; /* Importante para que flote correctamente */
+  }
+
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); /* Ajustado para el set duplicado */ }
+  }
+
+  /* MÁSCARA CENTRAL: Desvanece mucho los costados para centrar la atención */
+  .mask-gradient-center {
+    mask-image: linear-gradient(
+      to right, 
+      transparent 0%, 
+      black 20%, 
+      black 80%, 
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right, 
+      transparent 0%, 
+      black 20%, 
+      black 80%, 
+      transparent 100%
+    );
+  }
+</style>

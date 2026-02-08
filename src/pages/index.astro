@@ -1,0 +1,97 @@
+---
+// src/pages/index.astro
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+import Hero from "../components/home/Hero.astro";
+import Promo from "../components/home/Promo.astro";
+import Problem from "../components/home/Problem.astro";
+import Fails from "../components/home/WhyTraditionalFails.astro";
+import Solution from "../components/home/Solution.astro";
+
+// Nuevos (los que te pasé)
+import DeliverySteps from "../components/home/DeliverySteps.astro";
+import ServicesGrid from "../components/home/Services.astro";
+import CommunityGrid from "../components/home/CommunityGrid.astro";
+import FAQ from "../components/home/FAQ.astro";
+
+// Footer (según tu estructura)
+import Footer from "../components/global/Footer.astro";
+
+const promo = {
+  enabled: true,
+  badge: "CUPOS LIMITADOS",
+  title: "Taller Gamer (Niños)",
+  location: "Punta Arenas",
+  description:
+    "Programación + videojuegos (nivel inicial). Ideal para partir con lógica y creatividad, sin humo.",
+  imageUrl: "/promo/taller-gamer.webp",
+  ctaLabel: "Inscribirme",
+  ctaHref: "https://academy.vanttacode.cl/",
+  whatsappNumber: "+56937766334",
+  whatsappLabel: "Consultar por WhatsApp",
+  accent: "violet",
+};
+---
+
+<BaseLayout title="VanttaCode" lang="es">
+  <Hero />
+
+  <Promo promo={promo} />
+
+  <Problem />
+  <Fails />
+  <Solution />
+
+  <DeliverySteps />
+  <ServicesGrid />
+  <CommunityGrid />
+  <FAQ />
+
+  <Footer />
+
+  <!-- Reveal animation (global, suave, 1 vez) -->
+  <script is:inline>
+    (function () {
+      const els = document.querySelectorAll("[data-reveal]");
+      if (!els.length) return;
+
+      const reduce =
+        window.matchMedia &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (reduce) {
+        els.forEach((el) => el.classList.add("is-in"));
+        return;
+      }
+
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              e.target.classList.add("is-in");
+              io.unobserve(e.target);
+            }
+          }
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -10% 0px" }
+      );
+
+      els.forEach((el) => io.observe(el));
+    })();
+  </script>
+
+  <style is:inline>
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(14px);
+      filter: blur(4px);
+      transition: opacity 700ms ease, transform 700ms ease, filter 700ms ease;
+      will-change: opacity, transform, filter;
+    }
+    [data-reveal].is-in {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  </style>
+</BaseLayout>

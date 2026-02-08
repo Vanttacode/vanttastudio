@@ -1,0 +1,49 @@
+---
+import { ScanEye, BrainCircuit, Play, FileText } from "lucide-react";
+
+const steps = [
+  {
+    icon: ScanEye,
+    title: "Detectar",
+    desc: "Monitorean señales en tiempo real (correos, inventario, logs de sistema) buscando patrones."
+  },
+  {
+    icon: BrainCircuit,
+    title: "Proponer",
+    desc: "Analizan la situación con contexto histórico y sugieren la mejor acción operativa."
+  },
+  {
+    icon: Play,
+    title: "Ejecutar",
+    desc: "Realizan la tarea en tus sistemas (preparan borradores, mueven archivos, envían alertas)."
+  },
+  {
+    icon: FileText,
+    title: "Registrar",
+    desc: "Dejan evidencia de cada decisión en un log inmutable para total transparencia."
+  }
+];
+---
+
+<section class="py-24 bg-[#050000] border-y border-white/5 relative">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl font-black uppercase text-white mb-2">Ciclo de Operación</h2>
+      <p class="text-gray-500 font-mono text-sm">LOOP_MAIN_EXECUTION</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+      <div class="hidden md:block absolute top-12 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-red-900/50 to-transparent z-0"></div>
+
+      {steps.map((step, i) => (
+        <div class="relative z-10 flex flex-col items-center text-center group">
+          <div class="w-24 h-24 rounded-full bg-black border border-white/10 flex items-center justify-center mb-6 group-hover:border-red-600/50 transition-colors shadow-[0_0_30px_rgba(0,0,0,1)]">
+            <step.icon size={32} class="text-gray-500 group-hover:text-red-500 transition-colors" />
+          </div>
+          <h3 class="text-xl font-bold text-white uppercase mb-3">{step.title}</h3>
+          <p class="text-sm text-gray-400 leading-relaxed max-w-[200px]">{step.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

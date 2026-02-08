@@ -1,0 +1,77 @@
+---
+import { Check, Minus } from "lucide-react";
+---
+
+<section class="py-20 bg-[#050505] border-t border-white/5">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h3 class="text-xl font-bold text-white uppercase tracking-wide">Comparativa Técnica</h3>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-white/10 text-xs font-bold text-gray-500 uppercase tracking-widest">
+            <th class="py-4 px-4">Feature</th>
+            <th class="py-4 px-4 text-center">Lite</th>
+            <th class="py-4 px-4 text-center text-purple-400">Full</th>
+            <th class="py-4 px-4 text-center">Commerce</th>
+          </tr>
+        </thead>
+        <tbody class="text-sm text-gray-300">
+          <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+            <td class="py-4 px-4 font-medium text-white">Reconstrucción Base Moderna</td>
+            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
+            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
+            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
+          </tr>
+          <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+            <td class="py-4 px-4">Réplica Diseño (Look & Feel)</td>
+            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
+            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
+            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
+          </tr>
+          
+          <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+            <td class="py-4 px-4">SEO Técnico Base</td>
+            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
+            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
+            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
+          </tr>
+          <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+            <td class="py-4 px-4">SEO Avanzado (301/404)</td>
+            <td class="text-center"><Minus size={16} className="mx-auto text-gray-700"/></td>
+            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
+            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
+          </tr>
+          
+          <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+            <td class="py-4 px-4">Migración Contenido</td>
+            <td class="text-center"><Minus size={16} className="mx-auto text-gray-700"/></td>
+            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
+            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
+          </tr>
+          <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+            <td class="py-4 px-4">Panel Admin / CMS</td>
+            <td class="text-center"><Minus size={16} className="mx-auto text-gray-700"/></td>
+            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
+            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
+          </tr>
+          
+          <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+            <td class="py-4 px-4">Pagos & Checkout</td>
+            <td class="text-center"><Minus size={16} className="mx-auto text-gray-700"/></td>
+            <td class="text-center"><Minus size={16} className="mx-auto text-gray-700"/></td>
+            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
+          </tr>
+          <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+            <td class="py-4 px-4">Pedidos & Notificaciones</td>
+            <td class="text-center"><Minus size={16} className="mx-auto text-gray-700"/></td>
+            <td class="text-center"><Minus size={16} className="mx-auto text-gray-700"/></td>
+            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

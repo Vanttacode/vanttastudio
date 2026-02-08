@@ -1,0 +1,26 @@
+---
+// src/components/ui/ThemeToggle.astro
+---
+<button
+  type="button"
+  class="v-pill-item v-focus-ring v-anim inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm v-muted"
+  aria-label="Cambiar tema"
+  data-theme-toggle
+>
+  <span class="select-none">Tema</span>
+  <span aria-hidden="true">◐</span>
+</button>
+
+<script is:inline>
+  (function () {
+    var btn = document.querySelector("[data-theme-toggle]");
+    if (!btn) return;
+
+    btn.addEventListener("click", function () {
+      var root = document.documentElement;
+      var next = root.dataset.theme === "light" ? "dark" : "light";
+      root.dataset.theme = next;
+      try { localStorage.setItem("theme", next); } catch (e) {}
+    });
+  })();
+</script>

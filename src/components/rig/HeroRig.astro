@@ -1,0 +1,67 @@
+---
+import { Cpu, Clock, Zap } from "lucide-react";
+---
+<section class="relative min-h-[85vh] flex flex-col justify-center px-6 border-b border-white/10 bg-black overflow-hidden">
+  
+  <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-red-900/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto w-full relative z-10 pt-20">
+    
+    <div class="flex items-center gap-3 mb-8">
+      <div class="px-3 py-1 border border-red-500/30 bg-red-900/10 text-red-500 text-[10px] font-mono font-bold tracking-widest uppercase">
+        Vantta Lab / Proto_v1
+      </div>
+      <div class="h-[1px] w-20 bg-red-900/30"></div>
+    </div>
+    
+    <h1 class="text-6xl md:text-9xl font-black uppercase tracking-tighter text-white leading-[0.85] mb-8">
+      VANTTA<span class="text-transparent bg-clip-text bg-gradient-to-b from-red-500 to-red-900">RIG</span>
+    </h1>
+    
+    <p class="text-xl md:text-3xl text-gray-400 max-w-3xl font-light leading-snug mb-20">
+      Sistemas operativos que <span class="text-white font-bold">trabajan por ti</span>. <br/>
+      Un empleado digital para tu operación.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12 border-t border-white/10 pt-12">
+      
+      <div class="group">
+        <div class="mb-4 text-red-600">
+           <Cpu size={32} />
+        </div>
+        <h3 class="text-lg font-bold text-white uppercase mb-3 group-hover:text-red-500 transition-colors">
+          No son Chatbots
+        </h3>
+        <p class="text-sm text-gray-500 leading-relaxed max-w-xs">
+          Son sistemas diseñados para integrarse como un empleado más. Tienen permisos, ejecutan tareas y dejan evidencia.
+        </p>
+      </div>
+
+      <div class="group">
+        <div class="mb-4 text-red-600">
+           <Clock size={32} />
+        </div>
+        <h3 class="text-lg font-bold text-white uppercase mb-3 group-hover:text-red-500 transition-colors">
+          Operación 24/7
+        </h3>
+        <p class="text-sm text-gray-500 leading-relaxed max-w-xs">
+          Se encargan de lo repetitivo y crucial mientras vos descansás. La operación sigue corriendo sin pausas.
+        </p>
+      </div>
+
+      <div class="group">
+        <div class="mb-4 text-red-600">
+           <Zap size={32} />
+        </div>
+        <h3 class="text-lg font-bold text-white uppercase mb-3 group-hover:text-red-500 transition-colors">
+          Autosuficiencia
+        </h3>
+        <p class="text-sm text-gray-500 leading-relaxed max-w-xs">
+          Acumulan contexto con el tiempo. Aprenden de tu empresa y buscan formas de hacerla más eficiente.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>

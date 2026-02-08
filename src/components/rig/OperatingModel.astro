@@ -1,0 +1,66 @@
+---
+import { ScanEye, BrainCircuit, Play, FileText, Monitor, Network } from "lucide-react";
+---
+
+<section class="py-20 px-6 bg-[#050505] border-b border-white/10">
+  <div class="max-w-6xl mx-auto">
+    
+    <div class="mb-16">
+       <h2 class="text-3xl font-black uppercase text-white mb-2">Cómo Operan</h2>
+       <p class="text-gray-500 max-w-2xl">Detectan señales, proponen acciones y registran evidencia. Todo bajo reglas.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-20">
+       <div class="p-6 border border-white/10 bg-black rounded-xl">
+          <ScanEye class="text-red-500 mb-4" size={32} />
+          <h3 class="font-bold text-white uppercase mb-2">1. Detectan</h3>
+          <p class="text-sm text-gray-400">Monitorean señales (correos, stocks, logs) buscando patrones.</p>
+       </div>
+       <div class="p-6 border border-white/10 bg-black rounded-xl">
+          <BrainCircuit class="text-red-500 mb-4" size={32} />
+          <h3 class="font-bold text-white uppercase mb-2">2. Proponen</h3>
+          <p class="text-sm text-gray-400">Analizan contexto y sugieren la mejor acción operativa.</p>
+       </div>
+       <div class="p-6 border border-white/10 bg-black rounded-xl">
+          <Play class="text-red-500 mb-4" size={32} />
+          <h3 class="font-bold text-white uppercase mb-2">3. Ejecutan</h3>
+          <p class="text-sm text-gray-400">Preparan borradores, mueven archivos y envían alertas.</p>
+       </div>
+       <div class="p-6 border border-white/10 bg-black rounded-xl">
+          <FileText class="text-red-500 mb-4" size={32} />
+          <h3 class="font-bold text-white uppercase mb-2">4. Registran</h3>
+          <p class="text-sm text-gray-400">Dejan evidencia inmutable (logs) para trazabilidad.</p>
+       </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      
+      <div class="flex gap-6 items-start p-8 bg-[#0a0a0a] border border-white/5 rounded-2xl">
+         <div class="p-4 bg-white/5 rounded-xl text-white shrink-0">
+            <Monitor size={32} />
+         </div>
+         <div>
+            <h3 class="text-xl font-bold text-white mb-2">Control de Entorno (Office)</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+               Pueden operar herramientas y flujos en un entorno de escritorio (documentos, planillas, correos, formularios) siguiendo estrictamente tus permisos y reglas de negocio.
+            </p>
+         </div>
+      </div>
+
+      <div class="flex gap-6 items-start p-8 bg-[#0a0a0a] border border-white/5 rounded-2xl relative overflow-hidden group">
+         <div class="absolute inset-0 bg-blue-900/5 group-hover:bg-blue-900/10 transition-colors"></div>
+         <div class="p-4 bg-blue-500/10 border border-blue-500/20 rounded-xl text-blue-400 shrink-0 relative z-10">
+            <Network size={32} />
+         </div>
+         <div class="relative z-10">
+            <h3 class="text-xl font-bold text-white mb-2">Integración Nativa</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+               Conectan de forma directa con <strong class="text-white">Ubikapp y UbikCorp</strong> para actuar con contexto real del negocio (ventas, inventario, RR.HH., finanzas, legal).
+            </p>
+         </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>

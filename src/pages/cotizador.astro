@@ -1,0 +1,60 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/global/Footer.astro";
+import { CotizadorBuilder } from "../components/cotizador/CotizadorBuilder";
+import { Settings, MessageCircle, Mail } from "lucide-react";
+---
+
+<BaseLayout title="Cotizador Modular | Arma tu Web - VanttaCode">
+  
+  <main class="bg-black min-h-screen pt-32 pb-20">
+    
+    <div class="max-w-4xl mx-auto text-center px-6 mb-10">
+      <div class="inline-flex items-center gap-2 py-1 px-3 rounded-full bg-cyan-900/20 border border-cyan-500/30 text-cyan-300 text-[10px] font-bold tracking-widest uppercase mb-6">
+        <Settings size={12} />
+        <span>CONFIGURADOR DE PROYECTO</span>
+      </div>
+      
+      <h1 class="text-4xl md:text-6xl font-black text-white uppercase mb-4">
+        WEB BASIC + <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">MÓDULOS</span>
+      </h1>
+      <p class="text-gray-400 max-w-2xl mx-auto">
+        Comienza con la base (3.5 UF) y agrega solo lo que necesitas. <br/>
+        Transparencia total. Sin costos ocultos.
+      </p>
+    </div>
+
+    <CotizadorBuilder client:visible />
+
+    <section class="max-w-3xl mx-auto px-6 mt-20">
+      <div class="p-1 rounded-3xl bg-gradient-to-r from-purple-500/20 to-cyan-500/20">
+        <div class="bg-[#080808] rounded-[22px] p-8 md:p-12 text-center border border-white/5">
+          <h3 class="text-2xl font-bold text-white mb-4">¿Te enredaste con los módulos?</h3>
+          <p class="text-gray-400 mb-8 max-w-lg mx-auto">
+            A veces es mejor hablar con un humano. Escríbenos directo y nosotros te armamos la propuesta ideal.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a 
+              href="https://wa.me/56937766334" 
+              target="_blank"
+              class="flex items-center justify-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-500 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-green-900/20"
+            >
+              <MessageCircle size={20} /> Hablar por WhatsApp
+            </a>
+            <a 
+              href="mailto:contacto@vanttacode.com" 
+              class="flex items-center justify-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold rounded-xl transition-all"
+            >
+              <Mail size={20} /> Enviar Correo
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+
+</BaseLayout>

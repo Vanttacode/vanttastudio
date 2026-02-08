@@ -1,0 +1,243 @@
+﻿---
+// src/components/sections/Hero.astro
+const bg = "/hero/hero3.webp";
+---
+
+<section class="v-hero v-hero--clean" aria-label="Hero">
+  <div class="v-hero-bg" aria-hidden="true">
+    <img
+      src={bg}
+      alt=""
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="v-bg-img animate-breathe" 
+    />
+    <div class="v-hero-overlay"></div>
+    <div class="v-glow v-glow--purple"></div>
+  </div>
+
+  <div class="mx-auto max-w-5xl px-4 w-full relative z-10">
+    <div class="v-hero-center">
+      <div class="v-hero-content">
+        
+        <h1 class="v-hero-title animate-cinematic" style="--delay: 100ms">
+          Elevá tu <span class="v-accent">estándar digital</span> <br class="hidden sm:block"/>sobre terreno firme.
+        </h1>
+
+        <p class="v-hero-subtitle animate-cinematic" style="--delay: 300ms">
+          Sin plantillas rotas ni deuda técnica. Desarrollamos webs de alto rendimiento, 
+          SEO nativo y sistemas que escalan al ritmo de tu negocio.
+        </p>
+
+        <div class="v-hero-cta animate-cinematic" style="--delay: 500ms">
+          <a href="/workover" class="v-cta v-cta--primary v-anim">
+            Workover Web
+          </a>
+          <a href="/portafolio" class="v-cta v-cta--ghost v-anim">
+            Portafolio
+          </a>
+        </div>
+
+        <div class="v-hero-micro animate-cinematic" style="--delay: 700ms" aria-label="Highlights">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+          <span>SEO Técnico</span>
+          <span class="sep">|</span>
+          <svg class="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+          <span>Performance</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* ... (Estilos anteriores sin cambios) ... */
+
+    /* =========================================================
+       HERO STYLES
+       ========================================================= */
+
+    .v-hero--clean {
+      position: relative;
+      min-height: 100svh;
+      padding-top: var(--header-h);
+      padding-bottom: 32px;
+      display: flex;
+      align-items: center;
+      overflow: hidden; 
+    }
+
+    /* BACKGROUND */
+    .v-hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: #000; 
+      overflow: hidden; /* Asegura que la imagen no desborde al escalar */
+    }
+
+    .v-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.5; 
+      mix-blend-mode: normal; 
+      /* Animación de respiración */
+      transform-origin: center; /* Escala desde el centro */
+      will-change: transform; /* Optimización de rendimiento */
+    }
+
+    .v-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, transparent 0%, rgba(6,6,8,0.8) 60%, rgba(6,6,8,1) 100%);
+    }
+
+    /* ... (Resto de estilos: .v-glow, .v-hero-center, etc.) ... */
+     .v-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60vw;
+      height: 60vh;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, transparent 70%);
+      filter: blur(100px);
+      pointer-events: none;
+      mix-blend-mode: screen; 
+    }
+
+    /* LAYOUT */
+    .v-hero-center {
+      min-height: calc(100svh - var(--header-h) - 32px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .v-hero-content {
+      width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* TYPOGRAPHY */
+    .v-hero-title {
+      margin: 0 0 24px 0;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: #fff;
+      font-size: clamp(3rem, 6vw, 4.5rem);
+      text-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+    }
+
+    .v-hero-subtitle {
+      margin: 0 auto 40px auto;
+      max-width: 60ch;
+      font-size: clamp(1rem, 1.2vw, 1.25rem);
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 400;
+    }
+
+    /* BUTTONS */
+    .v-hero-cta {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .v-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 32px;
+      border-radius: 99px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .v-cta--primary {
+      background: #fff;
+      color: #000;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+    .v-cta--primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 35px rgba(168, 85, 247, 0.5);
+    }
+
+    .v-cta--ghost {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      backdrop-filter: blur(10px);
+    }
+    .v-cta--ghost:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: #fff;
+    }
+
+    .v-hero-micro {
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.6);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .v-hero-micro .sep { opacity: 0.3; }
+
+    /* =========================================================
+       🔥 ANIMACIÓN "CINEMATIC BLUR"
+       ========================================================= */
+    
+    .animate-cinematic {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+      filter: blur(10px);
+      animation: cinematicReveal 3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      animation-delay: var(--delay, 0ms);
+      will-change: transform, opacity, filter;
+    }
+
+    @keyframes cinematicReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    /* =========================================================
+       ✨ ANIMACIÓN "BREATHE" (Respiración de fondo)
+       ========================================================= */
+
+    .animate-breathe {
+      /* Comienza con la escala normal */
+      transform: scale(1);
+      /* Animación infinita de ida y vuelta */
+      animation: breatheEffect 10s ease-in-out infinite alternate;
+      /* Retraso de 5 segundos antes de empezar */
+      animation-delay: 5s;
+    }
+
+    @keyframes breatheEffect {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        /* Escala sutilmente hacia arriba (zoom in lento) */
+        transform: scale(1.05); 
+      }
+    }
+  </style>
+</section>

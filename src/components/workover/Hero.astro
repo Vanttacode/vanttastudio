@@ -1,0 +1,32 @@
+---
+import { ArrowRight, Wrench } from "lucide-react";
+---
+<section class="relative pt-32 pb-20 px-6 overflow-hidden">
+  <div class="absolute inset-0 z-0">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[500px] bg-purple-900/20 blur-[120px] rounded-full pointer-events-none"></div>
+    <div class="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-20 mix-blend-overlay"></div>
+  </div>
+
+  <div class="max-w-4xl mx-auto text-center relative z-10">
+    <div class="inline-flex items-center gap-2 py-1 px-3 rounded-full bg-purple-900/20 border border-purple-500/30 text-purple-300 text-[10px] font-bold tracking-widest uppercase mb-6">
+      <Wrench size={12} />
+      <span>SERVICIO TÉCNICO ESPECIALIZADO</span>
+    </div>
+    
+    <h1 class="text-5xl md:text-7xl font-black uppercase tracking-tight mb-6 leading-[0.9]">
+      TU WEB NO ESTA PERDIDA. <br/>
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">LA REVIVIREMOS.</span>
+    </h1>
+    
+    <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+      Tu sitio actual ya tiene marca y contenido, pero el código la está matando. 
+      <strong class="text-white">Hacemos un trasplante de motor:</strong> misma apariencia, tecnología moderna.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#pricing" class="px-8 py-4 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-full transition-all shadow-lg shadow-purple-900/40 flex items-center justify-center gap-2">
+        Ver Planes de Rescate <ArrowRight size={20} className="ml-1" />
+      </a>
+    </div>
+  </div>
+</section>
