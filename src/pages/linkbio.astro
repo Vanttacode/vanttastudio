@@ -1,0 +1,199 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/global/Footer.astro";
+import { BioFeatures } from "../components/linkbio/BioFeatures";
+import { 
+  Check, X, ArrowRight, ExternalLink, 
+  BarChart3, Settings, ShoppingBag, Zap,
+  LifeBuoy, HeartHandshake
+} from "lucide-react";
+---
+
+<BaseLayout title="Vantta Bio | Tu Web Personal PRO">
+  
+  <main class="bg-black min-h-screen pt-32 pb-20">
+    
+    {/* HERO */}
+    <div class="max-w-4xl mx-auto text-center px-6 mb-20">
+      <span class="text-[10px] font-bold text-purple-500 uppercase tracking-[0.3em] mb-4 block">
+        Personal Brand System v2.0
+      </span>
+      <h1 class="text-5xl md:text-7xl font-black text-white uppercase mb-6 leading-none">
+        No es solo un Link.<br/>
+        Es tu <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Imperio Digital.</span>
+      </h1>
+      <p class="text-gray-400 text-lg max-w-2xl mx-auto mb-10">
+        La evolución del Link-in-Bio. Autoadministrable, con métricas reales y lista para vender. <br/>
+        <span class="text-white font-bold">Un solo pago. Tuya para siempre.</span>
+      </p>
+      
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="#precios" class="px-8 py-4 bg-white text-black font-black uppercase text-xs rounded-full hover:bg-gray-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+          Obtener mi VanttaBio
+        </a>
+        <a href="https://mayraibanez.vercel.app/" target="_blank" class="px-8 py-4 bg-white/5 border border-white/10 text-white font-bold uppercase text-xs rounded-full hover:bg-white/10 transition-all flex items-center justify-center gap-2">
+          Ver Demo en Vivo <ExternalLink size={16} />
+        </a>
+      </div>
+    </div>
+
+    {/* COMPARATIVA */}
+    <section class="max-w-6xl mx-auto px-6 mb-24">
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="p-8 rounded-3xl bg-red-900/5 border border-red-900/20 opacity-70 grayscale">
+             <div class="flex items-center gap-3 mb-6 text-red-400 font-bold uppercase tracking-widest text-xs">
+                <X size={16} /> Lo Básico / Gratuito
+             </div>
+             <ul class="space-y-4 text-gray-500 text-sm">
+                <li class="flex gap-3"><X size={16} /> Diseño genérico que nadie recuerda.</li>
+                <li class="flex gap-3"><X size={16} /> Pagas mes a mes para ver estadísticas.</li>
+                <li class="flex gap-3"><X size={16} /> Si quieres vender, te cobran comisión.</li>
+             </ul>
+          </div>
+
+          <div class="p-8 rounded-3xl bg-purple-900/10 border border-purple-500/30 relative overflow-hidden group hover:border-purple-500/50 transition-colors">
+             <div class="absolute top-0 right-0 p-3 bg-purple-600 text-white text-[10px] font-bold uppercase rounded-bl-xl shadow-lg">
+                Vantta Standard
+             </div>
+             <div class="flex items-center gap-3 mb-6 text-purple-400 font-bold uppercase tracking-widest text-xs">
+                <Check size={16} /> Vantta Bio Pro
+             </div>
+             <ul class="space-y-4 text-gray-300 text-sm font-medium">
+                <li class="flex gap-3 text-white"><Check size={16} class="text-purple-400" /> <span class="text-gray-400">Panel de Control:</span> Edita todo tú mismo.</li>
+                <li class="flex gap-3 text-white"><Check size={16} class="text-purple-400" /> <span class="text-gray-400">Propiedad Total:</span> Sin pagos mensuales.</li>
+                <li class="flex gap-3 text-white"><Check size={16} class="text-purple-400" /> <span class="text-gray-400">Escalable:</span> Transfórmala en Tienda mañana.</li>
+             </ul>
+          </div>
+       </div>
+    </section>
+
+    {/* FEATURES */}
+    <div class="text-center mb-10">
+       <h2 class="text-3xl font-black text-white uppercase">Módulos de Poder</h2>
+       <p class="text-gray-500">Más que una bio, una herramienta de conversión.</p>
+    </div>
+    <BioFeatures client:visible />
+
+    {/* INFO TÉCNICA */}
+    <section class="max-w-7xl mx-auto px-6 py-24 border-t border-white/5 mt-20">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-[#080808] p-8 rounded-3xl border border-white/5 hover:border-white/20 transition-all group">
+           <div class="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center text-white mb-6 group-hover:bg-purple-600 transition-colors">
+              <Settings size={24} />
+           </div>
+           <h3 class="text-xl font-bold text-white mb-3">Panel de Control</h3>
+           <p class="text-gray-400 text-sm leading-relaxed">
+             Te entregamos un acceso privado para que cambies fotos, enlaces, textos y colores cuando quieras, desde tu celular.
+           </p>
+        </div>
+        <div class="bg-[#080808] p-8 rounded-3xl border border-white/5 hover:border-white/20 transition-all group">
+           <div class="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center text-white mb-6 group-hover:bg-cyan-600 transition-colors">
+              <BarChart3 size={24} />
+           </div>
+           <h3 class="text-xl font-bold text-white mb-3">Métricas Reales</h3>
+           <p class="text-gray-400 text-sm leading-relaxed">
+             Deja de adivinar. Mira cuánta gente entra, qué botones clican más y desde qué países te visitan.
+           </p>
+        </div>
+        <div class="bg-[#080808] p-8 rounded-3xl border border-white/5 hover:border-white/20 transition-all group">
+           <div class="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center text-white mb-6 group-hover:bg-pink-600 transition-colors">
+              <ShoppingBag size={24} />
+           </div>
+           <h3 class="text-xl font-bold text-white mb-3">E-Commerce Ready</h3>
+           <p class="text-gray-400 text-sm leading-relaxed">
+             ¿Listo para vender? Tu VanttaBio está preparada para activar un módulo de tienda sin hacer la web de nuevo.
+           </p>
+        </div>
+      </div>
+    </section>
+
+    {/* SECCIÓN PRECIOS (PRODUCTO + SERVICIO) */}
+    <section id="precios" class="max-w-5xl mx-auto px-6 mt-10 pb-24">
+       
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+          
+          {/* 1. PRODUCTO PRINCIPAL (EL LINK BIO) */}
+          <div class="p-10 rounded-[3rem] bg-gradient-to-b from-[#111] to-black border border-white/10 relative overflow-hidden shadow-2xl shadow-purple-900/20 z-10">
+             <div class="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-10"></div>
+             
+             <div class="inline-flex items-center gap-2 px-3 py-1 bg-green-900/30 text-green-400 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6">
+                <Zap size={12} /> Pago Único
+             </div>
+
+             <h2 class="text-3xl font-black text-white uppercase mb-4">Tu VanttaBio</h2>
+             
+             <div class="flex items-center gap-4 mb-2">
+                <span class="text-xl text-gray-600 font-bold line-through decoration-red-500/50">$180.000</span>
+                <div class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+                   $100.000
+                </div>
+             </div>
+             
+             <p class="text-gray-400 text-xs uppercase tracking-widest mb-8 border-b border-white/10 pb-8">
+               Propiedad Total • Entrega en 48h
+             </p>
+
+             <ul class="space-y-3 mb-8 text-sm text-gray-300">
+                <li class="flex items-center gap-2"><Check size={14} class="text-green-500" /> Diseño Premium Personalizado</li>
+                <li class="flex items-center gap-2"><Check size={14} class="text-green-500" /> Acceso a Panel de Control</li>
+                <li class="flex items-center gap-2"><Check size={14} class="text-green-500" /> Carga inicial de contenido</li>
+                <li class="flex items-center gap-2"><Check size={14} class="text-green-500" /> Sin pagos mensuales obligatorios</li>
+             </ul>
+
+             <a 
+               href="https://api.whatsapp.com/send?phone=56937766334&text=Hola%20Vantta!%20Quiero%20el%20Pack%20VanttaBio%20de%20$100.000" 
+               target="_blank" 
+               class="flex items-center justify-center gap-3 w-full py-4 bg-green-600 hover:bg-green-500 text-white font-bold uppercase text-sm rounded-xl transition-all shadow-lg hover:shadow-green-900/50 hover:-translate-y-1"
+             >
+                Solicitar Ahora <ArrowRight size={18} />
+             </a>
+          </div>
+
+          {/* 2. SERVICIO OPCIONAL (PLAN TE ACOMPAÑAMOS) */}
+          <div class="p-10 rounded-[3rem] bg-[#0a0a0a] border border-white/5 relative overflow-hidden group hover:border-white/10 transition-colors md:mt-8">
+             
+             <div class="inline-flex items-center gap-2 px-3 py-1 bg-blue-900/20 text-blue-400 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6">
+                <LifeBuoy size={12} /> Opcional
+             </div>
+
+             <h2 class="text-3xl font-black text-white uppercase mb-4">Plan "Te Acompañamos"</h2>
+             
+             <div class="flex items-baseline gap-1 mb-2">
+                <div class="text-4xl font-black text-white">
+                   $45.000
+                </div>
+                <span class="text-sm text-gray-500 font-bold">/ mes</span>
+             </div>
+             
+             <p class="text-gray-400 text-xs uppercase tracking-widest mb-8 border-b border-white/10 pb-8">
+               Mantenimiento • Soporte • Paz Mental
+             </p>
+
+             <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                Ideal si no tienes tiempo para editar nada. Nosotros nos convertimos en tu equipo digital.
+             </p>
+
+             <ul class="space-y-3 mb-8 text-sm text-gray-300">
+                <li class="flex items-center gap-2"><HeartHandshake size={14} class="text-blue-500" /> Actualización de contenido ilimitada</li>
+                <li class="flex items-center gap-2"><HeartHandshake size={14} class="text-blue-500" /> Soporte prioritario por WhatsApp</li>
+                <li class="flex items-center gap-2"><HeartHandshake size={14} class="text-blue-500" /> Reporte mensual de métricas</li>
+                <li class="flex items-center gap-2"><HeartHandshake size={14} class="text-blue-500" /> Cancelas cuando quieras</li>
+             </ul>
+
+             <a 
+               href="https://api.whatsapp.com/send?phone=56937766334&text=Hola%20Vantta!%20Me%20interesa%20el%20Plan%20Te%20Acompa%C3%B1amos%20de%20$45.000" 
+               target="_blank" 
+               class="flex items-center justify-center gap-3 w-full py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold uppercase text-sm rounded-xl transition-all"
+             >
+                Consultar Plan <ArrowRight size={18} />
+             </a>
+          </div>
+
+       </div>
+    </section>
+
+  </main>
+
+  <Footer />
+
+</BaseLayout>

@@ -2,19 +2,24 @@
 // src/pages/index.astro
 import BaseLayout from "../layouts/BaseLayout.astro";
 
+// Componentes Principales
 import Hero from "../components/home/Hero.astro";
+
+// --- NUEVO COMPONENTE LINKBIO (Debajo del Hero) ---
+import { LinkBioPromo } from "../components/linkbio/LinkBioPromo";
+
 import Promo from "../components/home/Promo.astro";
 import Problem from "../components/home/Problem.astro";
 import Fails from "../components/home/WhyTraditionalFails.astro";
 import Solution from "../components/home/Solution.astro";
 
-// Nuevos (los que te pasé)
+// Nuevos
 import DeliverySteps from "../components/home/DeliverySteps.astro";
 import ServicesGrid from "../components/home/Services.astro";
 import CommunityGrid from "../components/home/CommunityGrid.astro";
 import FAQ from "../components/home/FAQ.astro";
 
-// Footer (según tu estructura)
+// Footer
 import Footer from "../components/global/Footer.astro";
 
 const promo = {
@@ -33,23 +38,46 @@ const promo = {
 };
 ---
 
-<BaseLayout title="VanttaCode" lang="es">
+<BaseLayout title="VanttaCode | Ecosistema Digital">
+  
   <Hero />
 
-  <Promo promo={promo} />
+  <LinkBioPromo client:visible />
 
-  <Problem />
-  <Fails />
-  <Solution />
+  <div data-reveal>
+    <Promo promo={promo} />
+  </div>
 
-  <DeliverySteps />
-  <ServicesGrid />
-  <CommunityGrid />
-  <FAQ />
+  <div data-reveal>
+    <Problem />
+  </div>
+  
+  <div data-reveal>
+    <Fails />
+  </div>
+  
+  <div data-reveal>
+    <Solution />
+  </div>
+
+  <div data-reveal>
+    <DeliverySteps />
+  </div>
+  
+  <div data-reveal>
+    <ServicesGrid />
+  </div>
+  
+  <div data-reveal>
+    <CommunityGrid />
+  </div>
+  
+  <div data-reveal>
+    <FAQ />
+  </div>
 
   <Footer />
 
-  <!-- Reveal animation (global, suave, 1 vez) -->
   <script is:inline>
     (function () {
       const els = document.querySelectorAll("[data-reveal]");
